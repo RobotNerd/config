@@ -1,0 +1,9 @@
+OPTIONS=autodig
+OPTIONS=catname:Finn
+OPTIONS=dogname:Flopsy
+OPTIONS=fruit:grape
+OPTIONS=menucolors
+OPTIONS=name:Frylock
+OPTIONS=pickup_types:?!/$="
+OPTIONS=pushweapon
+OPTIONS=role:val,race:hum,align:law,gender:fem

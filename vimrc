@@ -1,0 +1,81 @@
+" vundle setup
+set nocompatible 
+filetype off 
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'GutenYe/json5.vim'
+Plugin 'flazz/vim-colorschemes'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'leafgarland/typescript-vim'
+Plugin 'robotnerd/outline-vim'
+Plugin 'robotnerd/prose-english-vim'
+
+call vundle#end()
+filetype plugin indent on
+" End vundle setup
+
+syntax on
+set background=dark
+color gruvbox
+
+" Tabs
+set tabstop=2
+setl expandtab
+set shiftwidth=2
+
+" Remember previous position
+set viminfo='10,\"100,:20,%,n~/.viminfo
+function! ResCur()
+    if line("'\"") <= line ("$")
+        normal! g`"
+        return 1
+    endif
+endfunction
+
+augroup resCur
+  autocmd!
+  autocmd BufWinEnter * call ResCur()
+augroup END
+
+" Highlight the current line
+set cursorline
+
+" Indent same as previous line
+set autoindent
+
+" Show line numbers
+set number
+
+" Show right margin
+set colorcolumn=80
+
+" Wrap text & navigation of wrapped lines
+set wrap
+set linebreak
+map j gj
+map k gk
+
+" Disable indentation that comes with leafgarland/typscript-vim
+let g:typescript_indent_disable = 1
+
+" Apply custom configuration for prose documents.
+augroup prose
+  autocmd!
+  autocmd BufRead,BufNewFile *.prose
+    \ set colorcolumn=0 |
+    \ set columns=80 |
+    \ setlocal spell spelllang=en_us |
+    \ hi clear SpellBad |
+    \ hi SpellBad cterm=underline
+augroup END
+
+" Apply custom configuration for fountain documents.
+augroup fountain
+  autocmd!
+  autocmd BufRead,BufNewFile *.fountain
+    \ set colorcolumn=0 |
+    \ set columns=80
+augroup END
+
