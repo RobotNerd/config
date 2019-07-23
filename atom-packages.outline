@@ -1,0 +1,9 @@
+atom.io packages
+- atom-beautify
+- atom-typescript
+- linter
+- linter-eslint
+- linter-pylint
+- linter-sass-lint
+- linter-tslint
+- sublime-style-column-selection
