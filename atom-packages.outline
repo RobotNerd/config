@@ -1,6 +1,7 @@
 atom.io packages
 - atom-beautify
 - atom-typescript
+- highlight-selected
 - linter
 - linter-eslint
 - linter-pylint
