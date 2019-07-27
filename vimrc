@@ -79,3 +79,5 @@ augroup fountain
     \ set columns=80
 augroup END
 
+" highlight search text
+set hlsearch
