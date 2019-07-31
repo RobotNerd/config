@@ -7,4 +7,13 @@ atom.io packages
 - linter-pylint
 - linter-sass-lint
 - linter-tslint
+- minimap
+- minimap-cursorline
+- minimap-find-and-replace
+- minimap-git-diff
+- minimap-highlight-selected
+- minimap-linter
+- minimap-pigments
+- minimap-quick-highlight
+- minimap-selection
 - sublime-style-column-selection
