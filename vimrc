@@ -18,7 +18,7 @@ filetype plugin indent on
 
 syntax on
 set background=dark
-color gruvbox
+silent! color gruvbox
 
 " Tabs
 set tabstop=2
