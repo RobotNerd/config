@@ -13,11 +13,6 @@ declare -a SNAP_APPS=(
 PKG_MGR="pacman -Syu --noconfirm"
 
 custom_setup() {
-  # install snap package manager for installing some applications
-  # from: https://wiki.manjaro.org/index.php/Snap
-  #eval "$PKG_MGR snapd"
-  #systemctl enable --now snapd.socket
-  #ln -s /var/lib/snapd/snap /snap
   :
 }
 
