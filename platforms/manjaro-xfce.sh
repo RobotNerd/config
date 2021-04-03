@@ -25,7 +25,7 @@ custom_actions() {
   # install applications with snap
   for i in "${SNAP_APPS[@]}"
   do
-    eval "snap install $i"
+    sudo snap install $i
   done
 }
 

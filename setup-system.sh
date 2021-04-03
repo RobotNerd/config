@@ -5,6 +5,7 @@ set -e
 source global-apps.sh
 source messaging.sh
 
+skip_custom_actions=''
 skip_package_manager=''
 skip_vundle=''
 target=''
@@ -13,15 +14,16 @@ print_usage() {
   echo "Command usage:"
   echo "  setup-system.sh -t TARGET"
   echo
-  echo "  -t TARGET : name of the local *.sh file for the target system"
+  echo "  -t TARGET : name of the local *.sh file for the target platform"
   echo "  -a        : skip platform-specific actions"
   echo "  -p        : skip package manager application install"
   echo "  -v        : skip vundle install"
   exit 0
 }
 
-while getopts 'pt:v' flag; do
+while getopts 'apt:v' flag; do
   case "${flag}" in
+    a) skip_custom_actions='true' ;;
     p) skip_package_manager='true' ;;
     t) target="${OPTARG}" ;;
     v) skip_vundle='true' ;;
@@ -38,7 +40,9 @@ fi
 source ./$target
 
 # Execute any custom setup specific to the target platform.
-custom_setup
+if [ "$skip_custom_actions" != 'true' ]; then
+  custom_setup
+fi
 
 # Concatenate app names into single string
 all=""
@@ -82,10 +86,10 @@ if [ ! -f "$SSH_KEY" ]; then
 fi
 
 # Execute any custom actions specific to the target platform.
-custom_actions
-
-# Perform any teardown specific to the target platform.
-custom_teardown
+if [ "$skip_custom_actions" != 'true' ]; then
+  custom_actions
+  custom_teardown
+fi
 
 # Print out list of manual tasks
 echo
