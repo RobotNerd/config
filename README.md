@@ -13,7 +13,7 @@ setup-system.sh
 The script needs to use one of the target platforms that are located
 in the `platforms/` directory. An example:
 ```
-./setup-system.sh -t ./platforms/manjaro-xfce.sh`
+./setup-system.sh -t ./platforms/manjaro-xfce.sh
 ```
 
 > The script will prompt for the sudo password if installing packages
