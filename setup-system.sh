@@ -50,23 +50,20 @@ done
 
 if [ "$skip_package_manager" != 'true' ]; then
   info "Installing applications with pacman"
-  #eval "$PKG_MGR $all"
-  echo "$PKG_MGR $all"
+  eval "sudo $PKG_MGR $all"
 fi
 
 info "Copying config files from github"
-# TODO remove these wget statements when this script is added to config repo
-wget https://raw.githubusercontent.com/RobotNerd/config/master/nethackrc -O $HOME/.nethackrc
-wget https://raw.githubusercontent.com/RobotNerd/config/master/tmux.conf -O $HOME/.tmux.conf
-wget https://raw.githubusercontent.com/RobotNerd/config/master/vimrc -O $HOME/.vimrc
+cp ./nethackrc $HOME/.nethackrc
+cp ./tmux.conf $HOME/.tmux.conf
+cp ./vimrc $HOME/.vimrc
 
-info "Appending bashrc config from github to .bashrc"
-if ! grep -qe "$CMD" "$HOME/.bashrc"; then
-  # TODO replace with local fiel instead of wget
-  wget https://raw.githubusercontent.com/RobotNerd/config/master/bashrc -O $HOME/.bashrc-custom
-  CMD="source $HOME/.bashrc-custom"
+BASHRC_CMD="source $HOME/.bashrc-custom"
+if ! grep -qe "$BASHRC_CMD" "$HOME/.bashrc"; then
+  info "Appending bashrc config from github to .bashrc"
+  cp ./bashrc $HOME/.bashrc-custom
   cp $HOME/.bashrc $HOME/bkp.bashrc
-  echo -e "\n$CMD" >> $HOME/.bashrc
+  echo -e "\n$BASHRC_CMD" >> $HOME/.bashrc
   source $HOME/.bashrc
 fi
 
@@ -78,6 +75,12 @@ if [ "$skip_vundle" != 'true' ]; then
   vim +PluginInstall +qall
 fi
 
+SSH_KEY="$HOME/.ssh/id_ed25519"
+if [ ! -f "$SSH_KEY" ]; then
+  info "Generate ssh key"
+  ssh-keygen -t ed25519 -C "marshall.bowles@gmail.com"
+fi
+
 # Execute any custom actions specific to the target platform.
 custom_actions
 
@@ -87,10 +90,6 @@ custom_teardown
 # Print out list of manual tasks
 echo
 info "Manual setup checklist"
-SSH_KEY="$HOME/.ssh/id_ed25519"
-if [ ! -f "$SSH_KEY" ]; then
-  echo "- Generate ssh key: ssh-keygen -t ed25519 -C \"marshall.bowles@gmail.com\""
-fi
 echo "- Browser extensions"
 echo "  - Lastpass"
 echo "  - uBlock"
