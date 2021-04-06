@@ -12,6 +12,10 @@ declare -a SNAP_APPS=(
 )
 
 PKG_MGR="pacman -Syu --noconfirm"
+REDSHIFT_PATH=$HOME/.config/redshift/redshift.conf
+ZOOM_PKG=zoom_x86_64.pkg.tar.xz
+ZOOM_LOCAL=$HOME/Downloads/$ZOOM_PKG
+ZOOM_URI=https://zoom.us/client/latest/$ZOOM_PKG
 
 custom_setup() {
   :
@@ -24,10 +28,9 @@ custom_actions() {
     sudo snap install $i
   done
 
+  cp ./redshift.conf $REDSHIFT_PATH
+
   # Download and install Zoom
-  ZOOM_PKG=zoom_x86_64.pkg.tar.xz
-  ZOOM_LOCAL=$HOME/Downloads/$ZOOM_PKG
-  ZOOM_URI=https://zoom.us/client/latest/$ZOOM_PKG
   if [ ! -f "$ZOOM_LOCAL" ]; then
     wget $ZOOM_URI -O $ZOOM_LOCAL
     sudo pacman -U --noconfirm $ZOOM_LOCAL
