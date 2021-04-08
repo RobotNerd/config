@@ -85,6 +85,10 @@ if [ ! -f "$SSH_KEY" ]; then
   ssh-keygen -t ed25519 -C "marshall.bowles@gmail.com"
 fi
 
+# Enable ssh server
+sudo systemctl enable sshd
+sudo systemctl start sshd
+
 # Execute any custom actions specific to the target platform.
 if [ "$skip_custom_actions" != 'true' ]; then
   custom_actions

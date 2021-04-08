@@ -7,6 +7,7 @@ declare -a GLOBAL_APPS=(
   gimp
   git
   nethack
+  openssh
   tmux
   veracrypt
   vim
