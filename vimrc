@@ -6,9 +6,9 @@ call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'GutenYe/json5.vim'
-Plugin 'flazz/vim-colorschemes'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'leafgarland/typescript-vim'
+Plugin 'rafi/awesome-vim-colorschemes'
 Plugin 'robotnerd/outline-vim'
 Plugin 'robotnerd/prose-english-vim'
 

@@ -2,7 +2,6 @@
 
 # Install apps
 declare -a DISTRO_APPS=(
-  redshift
   the_silver_searcher
 )
 
@@ -12,7 +11,6 @@ declare -a SNAP_APPS=(
 )
 
 PKG_MGR="pacman -Syu --noconfirm"
-REDSHIFT_PATH=$HOME/.config/redshift/redshift.conf
 ZOOM_PKG=zoom_x86_64.pkg.tar.xz
 ZOOM_LOCAL=$HOME/Downloads/$ZOOM_PKG
 ZOOM_URI=https://zoom.us/client/latest/$ZOOM_PKG
@@ -27,8 +25,6 @@ custom_actions() {
   do
     sudo snap install $i
   done
-
-  cp ./redshift.conf $REDSHIFT_PATH
 
   # Download and install Zoom
   if [ ! -f "$ZOOM_LOCAL" ]; then

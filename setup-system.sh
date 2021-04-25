@@ -85,6 +85,10 @@ if [ ! -f "$SSH_KEY" ]; then
   ssh-keygen -t ed25519 -C "marshall.bowles@gmail.com"
 fi
 
+# Enable ssh server
+sudo systemctl enable sshd
+sudo systemctl start sshd
+
 # Execute any custom actions specific to the target platform.
 if [ "$skip_custom_actions" != 'true' ]; then
   custom_actions
@@ -97,9 +101,11 @@ info "Manual setup checklist"
 echo "- Browser extensions"
 echo "  - Lastpass"
 echo "  - uBlock"
-echo "- Security keys"
+echo "- Setup security keys"
 echo "  - github"
 echo "- VS Code extensions"
+echo "  - vscode-viml-syntax"
+echo "  - sort lines"
 echo "- Login to services"
 echo "  - Dropbox"
 echo "  - GitHub"
