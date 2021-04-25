@@ -2,13 +2,15 @@
 
 set -e
 
-source global-apps.sh
-source messaging.sh
+source ./scripts/global-apps.sh
+source ./scripts/messaging.sh
 
 skip_custom_actions=''
 skip_package_manager=''
 skip_vundle=''
 target=''
+
+CFG_PATH='./config-files'
 
 print_usage() {
   echo "Command usage:"
@@ -58,14 +60,14 @@ if [ "$skip_package_manager" != 'true' ]; then
 fi
 
 info "Copying config files from github"
-cp ./nethackrc $HOME/.nethackrc
-cp ./tmux.conf $HOME/.tmux.conf
-cp ./vimrc $HOME/.vimrc
+cp $CFG_PATH/nethackrc $HOME/.nethackrc
+cp $CFG_PATH/tmux.conf $HOME/.tmux.conf
+cp $CFG_PATH/vimrc $HOME/.vimrc
 
 BASHRC_CMD="source $HOME/.bashrc-custom"
 if ! grep -qe "$BASHRC_CMD" "$HOME/.bashrc"; then
   info "Appending bashrc config from github to .bashrc"
-  cp ./bashrc $HOME/.bashrc-custom
+  cp $CFG_PATH/bashrc $HOME/.bashrc-custom
   cp $HOME/.bashrc $HOME/bkp.bashrc
   echo -e "\n$BASHRC_CMD" >> $HOME/.bashrc
   source $HOME/.bashrc

@@ -28,7 +28,7 @@ custom_actions() {
     sudo snap install $i
   done
 
-  cp ./redshift.conf $REDSHIFT_PATH
+  cp $CFG_PATH/redshift.conf $REDSHIFT_PATH
 
   # Download and install Zoom
   if [ ! -f "$ZOOM_LOCAL" ]; then
