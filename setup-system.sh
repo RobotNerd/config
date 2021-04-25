@@ -41,6 +41,12 @@ if [ "$target" == '' ]; then
 fi
 source ./$target
 
+# Get user inputs needed by the script.
+echo -n "Enter your name: "
+read USERNAME
+echo -n "Enter your email: "
+read EMAIL
+
 # Execute any custom setup specific to the target platform.
 if [ "$skip_custom_actions" != 'true' ]; then
   custom_setup
@@ -57,6 +63,12 @@ done
 if [ "$skip_package_manager" != 'true' ]; then
   info "Installing applications with pacman"
   eval "sudo $PKG_MGR $all"
+fi
+
+if [ ! -f "$HOME/.gitconfig" ]; then
+  info "Configuring git"
+  git config --global user.email $EMAIL
+  git config --global user.name $USERNAME
 fi
 
 info "Copying config files from github"
@@ -84,7 +96,7 @@ fi
 SSH_KEY="$HOME/.ssh/id_ed25519"
 if [ ! -f "$SSH_KEY" ]; then
   info "Generate ssh key"
-  ssh-keygen -t ed25519 -C "marshall.bowles@gmail.com"
+  ssh-keygen -t ed25519 -C $EMAIL
 fi
 
 # Enable ssh server
