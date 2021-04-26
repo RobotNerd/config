@@ -7,6 +7,7 @@ source ./scripts/messaging.sh
 
 skip_custom_actions=''
 skip_package_manager=''
+skip_sshd=''
 skip_vundle=''
 target=''
 
@@ -19,14 +20,16 @@ print_usage() {
   echo "  -t TARGET : name of the local *.sh file for the target platform"
   echo "  -a        : skip platform-specific actions"
   echo "  -p        : skip package manager application install"
+  echo "  -s        : skip starting sshd"
   echo "  -v        : skip vundle install"
   exit 0
 }
 
-while getopts 'apt:v' flag; do
+while getopts 'apst:v' flag; do
   case "${flag}" in
     a) skip_custom_actions='true' ;;
     p) skip_package_manager='true' ;;
+    s) skip_sshd='true' ;;
     t) target="${OPTARG}" ;;
     v) skip_vundle='true' ;;
     *) print_usage
@@ -93,8 +96,10 @@ if [ ! -f "$SSH_KEY" ]; then
 fi
 
 # Enable ssh server
-sudo systemctl enable sshd
-sudo systemctl start sshd
+if ["$skip_sshd" != 'true' ]; then
+  sudo systemctl enable sshd
+  sudo systemctl start sshd
+fi
 
 # Execute any custom actions specific to the target platform.
 if [ "$skip_custom_actions" != 'true' ]; then
