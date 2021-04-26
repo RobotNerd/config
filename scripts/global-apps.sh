@@ -1,5 +1,3 @@
-#!/usr/bin/bash
-
 # Applications installed on all systems.
 declare -a GLOBAL_APPS=(
   docker

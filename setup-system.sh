@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
 set -e
 
@@ -76,14 +76,7 @@ cp $CFG_PATH/nethackrc $HOME/.nethackrc
 cp $CFG_PATH/tmux.conf $HOME/.tmux.conf
 cp $CFG_PATH/vimrc $HOME/.vimrc
 
-BASHRC_CMD="source $HOME/.bashrc-custom"
-if ! grep -qe "$BASHRC_CMD" "$HOME/.bashrc"; then
-  info "Appending bashrc config from github to .bashrc"
-  cp $CFG_PATH/bashrc $HOME/.bashrc-custom
-  cp $HOME/.bashrc $HOME/bkp.bashrc
-  echo -e "\n$BASHRC_CMD" >> $HOME/.bashrc
-  source $HOME/.bashrc
-fi
+source ./scripts/shell-config.sh
 
 if [ "$skip_vundle" != 'true' ]; then
   # Vundle setup for vim
