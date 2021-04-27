@@ -8,6 +8,7 @@ source ./scripts/messaging.sh
 skip_custom_actions=''
 skip_package_manager=''
 skip_sshd=''
+skip_user_details=''
 skip_vundle=''
 target=''
 
@@ -21,16 +22,18 @@ print_usage() {
   echo "  -a        : skip platform-specific actions"
   echo "  -p        : skip package manager application install"
   echo "  -s        : skip starting sshd"
+  echo "  -u        : skip entry of user details"
   echo "  -v        : skip vundle install"
   exit 0
 }
 
-while getopts 'apst:v' flag; do
+while getopts 'apst:uv' flag; do
   case "${flag}" in
     a) skip_custom_actions='true' ;;
     p) skip_package_manager='true' ;;
     s) skip_sshd='true' ;;
     t) target="${OPTARG}" ;;
+    u) skip_user_details='true' ;;
     v) skip_vundle='true' ;;
     *) print_usage
        exit 1 ;;
@@ -45,10 +48,12 @@ fi
 source ./$target
 
 # Get user inputs needed by the script.
-echo -n "Enter your name: "
-read USERNAME
-echo -n "Enter your email: "
-read EMAIL
+if [ "$skip_user_details" != 'true' ]; then
+  echo -n "Enter your name: "
+  read USERNAME
+  echo -n "Enter your email: "
+  read EMAIL
+fi
 
 # Execute any custom setup specific to the target platform.
 if [ "$skip_custom_actions" != 'true' ]; then
@@ -98,7 +103,7 @@ if [ ! -f "$SSH_KEY" ]; then
 fi
 
 # Enable ssh server
-if ["$skip_sshd" != 'true' ]; then
+if [ "$skip_sshd" != 'true' ]; then
   sudo systemctl enable sshd
   sudo systemctl start sshd
 fi
