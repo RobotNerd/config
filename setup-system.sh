@@ -72,6 +72,8 @@ if [ ! -f "$HOME/.gitconfig" ]; then
   info "Configuring git"
   git config --global user.email $EMAIL
   git config --global user.name $USERNAME
+  git config --global pager.branch false
+  git config --global pager.diff false
 fi
 
 info "Copying config files from github"
