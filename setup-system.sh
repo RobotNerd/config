@@ -2,8 +2,7 @@
 
 set -e
 
-source ./scripts/global-apps.sh
-source ./scripts/personal-apps.sh
+source ./scripts/applications.sh
 source ./scripts/messaging.sh
 
 skip_custom_actions=''
