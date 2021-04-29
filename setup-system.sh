@@ -7,6 +7,7 @@ source ./scripts/messaging.sh
 
 skip_custom_actions=''
 skip_package_manager=''
+skip_root_install=''
 skip_sshd=''
 skip_user_details=''
 skip_vundle=''
@@ -22,6 +23,7 @@ print_usage() {
   echo "  -t TARGET : name of the local *.sh file for the target platform"
   echo "  -a        : skip platform-specific actions"
   echo "  -p        : skip package manager application install"
+  echo "  -r        : do not install packages as root user (no sudo)"
   echo "  -s        : skip starting sshd"
   echo "  -u        : skip entry of user details"
   echo "  -v        : skip vundle install"
@@ -33,6 +35,7 @@ while getopts 'apst:uvw' flag; do
   case "${flag}" in
     a) skip_custom_actions='true' ;;
     p) skip_package_manager='true' ;;
+    r) skip_root_install='true' ;;
     s) skip_sshd='true' ;;
     t) target="${OPTARG}" ;;
     u) skip_user_details='true' ;;
@@ -77,7 +80,11 @@ done
 
 if [ "$skip_package_manager" != 'true' ]; then
   info "Installing applications with $PKG_MGR"
-  eval "sudo $PKG_MGR $all"
+  if [ "$skip_root_install" == 'true' ]; then
+    eval "$PKG_MGR $all"
+  else
+    eval "sudo $PKG_MGR $all"
+  fi
 fi
 
 if [ ! -f "$HOME/.gitconfig" ]; then
