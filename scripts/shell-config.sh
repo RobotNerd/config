@@ -5,6 +5,10 @@ case "$SHELL" in
   *zsh*) SHELL_CFG="$HOME/.zshrc" ;;
 esac
 
+if [ ! -f "$SHELL_CFG" ]; then
+  touch "$SHELL_CFG"
+fi
+
 if ! grep -qe "$SHELL_CMD" "$SHELL_CFG"; then
   info "Appending rc-custom config from github to $SHELL_CFG"
   cp $CFG_PATH/rc-custom $HOME/.rc-custom
