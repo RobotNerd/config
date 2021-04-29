@@ -3,6 +3,7 @@
 # Install apps
 declare -a DISTRO_APPS=(
   the_silver_searcher
+  "--cask google-chrome"
   "--cask firefox"
   "--cask gimp"
   "--cask inkscape"
