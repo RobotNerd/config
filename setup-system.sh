@@ -3,6 +3,7 @@
 set -e
 
 source ./scripts/global-apps.sh
+source ./scripts/personal-apps.sh
 source ./scripts/messaging.sh
 
 skip_custom_actions=''
@@ -11,6 +12,7 @@ skip_sshd=''
 skip_user_details=''
 skip_vundle=''
 target=''
+work_only=''
 
 CFG_PATH='./config-files'
 
@@ -24,10 +26,11 @@ print_usage() {
   echo "  -s        : skip starting sshd"
   echo "  -u        : skip entry of user details"
   echo "  -v        : skip vundle install"
+  echo "  -w        : install on a work machine and skip personal applications"
   exit 0
 }
 
-while getopts 'apst:uv' flag; do
+while getopts 'apst:uvw' flag; do
   case "${flag}" in
     a) skip_custom_actions='true' ;;
     p) skip_package_manager='true' ;;
@@ -35,6 +38,7 @@ while getopts 'apst:uv' flag; do
     t) target="${OPTARG}" ;;
     u) skip_user_details='true' ;;
     v) skip_vundle='true' ;;
+    w) work_only='true' ;;
     *) print_usage
        exit 1 ;;
   esac
@@ -62,7 +66,11 @@ fi
 
 # Concatenate app names into single string
 all=""
-APPS=("${GLOBAL_APPS[@]}" "${DISTRO_APPS[@]}")
+if [ "$work_only" == 'true' ]; then
+  APPS=("${GLOBAL_APPS[@]}" "${DISTRO_APPS[@]}")
+else
+  APPS=("${GLOBAL_APPS[@]}" "${PERSONAL_APPS[@]}" "${DISTRO_APPS[@]}")
+fi
 for i in "${APPS[@]}"
 do
   all+=" $i"

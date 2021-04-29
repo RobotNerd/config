@@ -2,6 +2,8 @@
 
 # Install apps
 declare -a DISTRO_APPS=(
+  gimp
+  inkscape
   the_silver_searcher
 )
 
