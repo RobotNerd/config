@@ -76,7 +76,7 @@ do
 done
 
 if [ "$skip_package_manager" != 'true' ]; then
-  info "Installing applications with pacman"
+  info "Installing applications with $PKG_MGR"
   eval "sudo $PKG_MGR $all"
 fi
 
