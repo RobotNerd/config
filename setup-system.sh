@@ -31,7 +31,7 @@ print_usage() {
   exit 0
 }
 
-while getopts 'apst:uvw' flag; do
+while getopts 'aprst:uvw' flag; do
   case "${flag}" in
     a) skip_custom_actions='true' ;;
     p) skip_package_manager='true' ;;
