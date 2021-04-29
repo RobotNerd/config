@@ -7,7 +7,6 @@ source ./scripts/messaging.sh
 
 skip_custom_actions=''
 skip_package_manager=''
-skip_root_install=''
 skip_sshd=''
 skip_user_details=''
 skip_vundle=''
@@ -23,7 +22,6 @@ print_usage() {
   echo "  -t TARGET : name of the local *.sh file for the target platform"
   echo "  -a        : skip platform-specific actions"
   echo "  -p        : skip package manager application install"
-  echo "  -r        : do not install packages as root user (no sudo)"
   echo "  -s        : skip starting sshd"
   echo "  -u        : skip entry of user details"
   echo "  -v        : skip vundle install"
@@ -31,11 +29,10 @@ print_usage() {
   exit 0
 }
 
-while getopts 'aprst:uvw' flag; do
+while getopts 'apst:uvw' flag; do
   case "${flag}" in
     a) skip_custom_actions='true' ;;
     p) skip_package_manager='true' ;;
-    r) skip_root_install='true' ;;
     s) skip_sshd='true' ;;
     t) target="${OPTARG}" ;;
     u) skip_user_details='true' ;;
@@ -66,25 +63,8 @@ if [ "$skip_custom_actions" != 'true' ]; then
   custom_setup
 fi
 
-# Concatenate app names into single string
-all=""
-if [ "$work_only" == 'true' ]; then
-  APPS=("${GLOBAL_APPS[@]}" "${DISTRO_APPS[@]}")
-else
-  APPS=("${GLOBAL_APPS[@]}" "${PERSONAL_APPS[@]}" "${DISTRO_APPS[@]}")
-fi
-for i in "${APPS[@]}"
-do
-  all+=" $i"
-done
-
 if [ "$skip_package_manager" != 'true' ]; then
-  info "Installing applications with $PKG_MGR"
-  if [ "$skip_root_install" == 'true' ]; then
-    eval "$PKG_MGR $all"
-  else
-    eval "sudo $PKG_MGR $all"
-  fi
+  install_apps
 fi
 
 if [ ! -f "$HOME/.gitconfig" ]; then

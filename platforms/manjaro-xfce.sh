@@ -1,11 +1,12 @@
 #!/usr/bin/bash
 
+OS="linux"
+
 # Install apps
 declare -a DISTRO_APPS=(
   gimp
   inkscape
   redshift
-  the_silver_searcher
 )
 
 declare -a SNAP_APPS=(
