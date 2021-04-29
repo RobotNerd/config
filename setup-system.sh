@@ -1,14 +1,18 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
 set -e
 
-source global-apps.sh
-source messaging.sh
+source ./scripts/global-apps.sh
+source ./scripts/messaging.sh
 
 skip_custom_actions=''
 skip_package_manager=''
+skip_sshd=''
+skip_user_details=''
 skip_vundle=''
 target=''
+
+CFG_PATH='./config-files'
 
 print_usage() {
   echo "Command usage:"
@@ -17,15 +21,19 @@ print_usage() {
   echo "  -t TARGET : name of the local *.sh file for the target platform"
   echo "  -a        : skip platform-specific actions"
   echo "  -p        : skip package manager application install"
+  echo "  -s        : skip starting sshd"
+  echo "  -u        : skip entry of user details"
   echo "  -v        : skip vundle install"
   exit 0
 }
 
-while getopts 'apt:v' flag; do
+while getopts 'apst:uv' flag; do
   case "${flag}" in
     a) skip_custom_actions='true' ;;
     p) skip_package_manager='true' ;;
+    s) skip_sshd='true' ;;
     t) target="${OPTARG}" ;;
+    u) skip_user_details='true' ;;
     v) skip_vundle='true' ;;
     *) print_usage
        exit 1 ;;
@@ -38,6 +46,14 @@ if [ "$target" == '' ]; then
   exit 1
 fi
 source ./$target
+
+# Get user inputs needed by the script.
+if [ "$skip_user_details" != 'true' ]; then
+  echo -n "Enter your name: "
+  read USERNAME
+  echo -n "Enter your email: "
+  read EMAIL
+fi
 
 # Execute any custom setup specific to the target platform.
 if [ "$skip_custom_actions" != 'true' ]; then
@@ -57,19 +73,20 @@ if [ "$skip_package_manager" != 'true' ]; then
   eval "sudo $PKG_MGR $all"
 fi
 
-info "Copying config files from github"
-cp ./nethackrc $HOME/.nethackrc
-cp ./tmux.conf $HOME/.tmux.conf
-cp ./vimrc $HOME/.vimrc
-
-BASHRC_CMD="source $HOME/.bashrc-custom"
-if ! grep -qe "$BASHRC_CMD" "$HOME/.bashrc"; then
-  info "Appending bashrc config from github to .bashrc"
-  cp ./bashrc $HOME/.bashrc-custom
-  cp $HOME/.bashrc $HOME/bkp.bashrc
-  echo -e "\n$BASHRC_CMD" >> $HOME/.bashrc
-  source $HOME/.bashrc
+if [ ! -f "$HOME/.gitconfig" ]; then
+  info "Configuring git"
+  git config --global user.email $EMAIL
+  git config --global user.name $USERNAME
+  git config --global pager.branch false
+  git config --global pager.diff false
 fi
+
+info "Copying config files from github"
+cp $CFG_PATH/nethackrc $HOME/.nethackrc
+cp $CFG_PATH/tmux.conf $HOME/.tmux.conf
+cp $CFG_PATH/vimrc $HOME/.vimrc
+
+source ./scripts/shell-config.sh
 
 if [ "$skip_vundle" != 'true' ]; then
   # Vundle setup for vim
@@ -82,12 +99,14 @@ fi
 SSH_KEY="$HOME/.ssh/id_ed25519"
 if [ ! -f "$SSH_KEY" ]; then
   info "Generate ssh key"
-  ssh-keygen -t ed25519 -C "marshall.bowles@gmail.com"
+  ssh-keygen -t ed25519 -C $EMAIL
 fi
 
 # Enable ssh server
-sudo systemctl enable sshd
-sudo systemctl start sshd
+if [ "$skip_sshd" != 'true' ]; then
+  sudo systemctl enable sshd
+  sudo systemctl start sshd
+fi
 
 # Execute any custom actions specific to the target platform.
 if [ "$skip_custom_actions" != 'true' ]; then
@@ -101,6 +120,7 @@ info "Manual setup checklist"
 echo "- Browser extensions"
 echo "  - Lastpass"
 echo "  - uBlock"
+echo "  - Foxy Gestures (Firefox)"
 echo "- Setup security keys"
 echo "  - github"
 echo "- VS Code extensions"
