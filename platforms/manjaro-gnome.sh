@@ -1,8 +1,11 @@
 #!/usr/bin/bash
 
+OS="linux"
+
 # Install apps
 declare -a DISTRO_APPS=(
-  the_silver_searcher
+  gimp
+  inkscape
 )
 
 declare -a SNAP_APPS=(
