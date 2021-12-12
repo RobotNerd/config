@@ -1,0 +1,2 @@
+#!/bin/bash
+watch "ls *.prose | xargs wc -w"

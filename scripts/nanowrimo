@@ -1,0 +1,70 @@
+#!/bin/bash
+
+# Calculate metrics for NaNoWriMo.
+# Show daily progress and overall progress.
+# The script updates a daily word count snapshot at midnight.
+
+TARGET=50000
+DAILY=2000
+
+# hide cursor
+tput civis
+
+# turn off keyboard input
+stty -echo
+
+# See https://unix.stackexchange.com/a/42292/281806
+cleanup ()
+{
+  # show cursor
+  tput cnorm
+
+  # turn on keyboard input
+  stty echo
+
+  exit 0
+}
+
+trap cleanup SIGINT SIGTERM
+
+update_snapshot () {
+  word_count=$(cat *.prose | wc -w)
+  echo "$(date +"%Y-%m-%d"),$word_count" >> .daily_count
+}
+
+daily_snapshot=0
+
+while :
+do
+  # Check the daily snapshot.
+  today=$(date +"%Y-%m-%d")
+  if test -f ".daily_count"; then
+    current_snapshot=$(awk 'END {print; exit}' .daily_count)
+    last_snapshot_date=$(echo $current_snapshot | awk 'BEGIN {FS=","}; {print $1}')
+    daily_snapshot=$(echo $current_snapshot | awk 'BEGIN {FS=","}; {print $2}')
+    if [[ "$last_snapshot_date" < "$today" ]]; then
+      update_snapshot
+    fi
+  else
+    # Generate the initial file.
+    update_snapshot
+  fi
+
+  total_word_count=$(cat *.prose | wc -w)
+
+  daily_word_count=$(($total_word_count - $daily_snapshot))
+  daily_to_goal=$(($DAILY - $daily_word_count))
+  daily_percent=$(bc -l <<< "scale=2; 100 * $daily_word_count / $DAILY")
+
+  days_left=$(bc -l <<< "30 - $(date +'%d')")
+  total_to_goal=$(($TARGET - $total_word_count))
+  total_percent=$(bc -l <<< "scale=2; 100*$total_word_count / $TARGET")
+  total_expected_percent=$(bc -l <<< "scale=2; 100 * $(date +'%d') / 30")
+
+  clear
+  echo \
+    "daily: $daily_word_count ($daily_to_goal of $DAILY) $daily_percent% --" \
+    "total: $total_word_count ($total_to_goal of $TARGET) $total_percent%" \
+    "(expect $total_expected_percent%)"
+  sleep 1
+done
