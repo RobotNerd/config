@@ -3,6 +3,7 @@
 import argparse
 
 from lib.config import Config
+from lib.config_files import ConfigFiles
 from lib.git import Git
 from lib.logger import Logger
 from lib.ssh import SSH
@@ -14,7 +15,8 @@ class PlatformConfigMissing(Exception):
     pass
 
 
-def apply_changes(logger, cfg):
+def apply_changes(logger, args, cfg):
+    ConfigFiles.copy(logger, args, cfg)
     Git.configure(logger, cfg)
     SSH.generate_key(logger, cfg)
     SSH.enable_sshd(logger, cfg)
@@ -78,7 +80,7 @@ def run():
     cfg_loader = Config(logger)
     cfg = cfg_loader.load(CONFIG_PATH)
     verify_platform_exists(logger, args.platform, cfg)
-    # apply_changes()  # TODO temporarily disabled to prevent applying it to my system
+    # apply_changes(logger, args, cfg)  # TODO temporarily disabled to prevent applying it to my system
     show_manual_steps()
 
 

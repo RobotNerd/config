@@ -7,6 +7,19 @@ ssh:
   generate_ssh_key: False
   ssh_key_path: ed25519
   sshd_enabled: False
+config_files:
+  all:
+    - name: tmux
+      src: config-files/tmux.conf
+      dst: $HOME/.tmux.conf
+    - name: vim
+      src: config-files/vimrc
+      dst: $HOME/.vimrc
+  personal:
+    - name: nethack
+      src: config-files/nethackrc
+      dst: $HOME/.nethackrc
+  work:
 applications:
   all:
     - docker

@@ -1,8 +1,7 @@
 #!/usr/bin/python3
-
+from lib.backup import Backup
 from lib.command import Cmd
 import os
-import time
 
 
 class SSH:
@@ -19,11 +18,8 @@ class SSH:
     
     @staticmethod
     def backup_existing_file(logger, cfg):
-        path = f"{os.environ['HOME']}/.ssh/id_{cfg['ssh']['ssh_keyfile']}"
-        if os.path.exists(path):
-            backup_path = path + f'.bkp.{round(time.time())}'
-            logger.warn(f'file {path} exists\nmaking backup {backup_path}')
-            os.rename(path, backup_path)
+        path = os.path.expandvars(f"$HOME/.ssh/id_{cfg['ssh']['ssh_keyfile']}")
+        Backup.file(logger, path)
 
     @staticmethod
     def enable_sshd(logger, cfg):

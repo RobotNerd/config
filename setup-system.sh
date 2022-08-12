@@ -75,10 +75,10 @@ fi
 #   git config --global pager.diff false
 # fi
 
-info "Copying config files from github"
-cp $CFG_PATH/nethackrc $HOME/.nethackrc
-cp $CFG_PATH/tmux.conf $HOME/.tmux.conf
-cp $CFG_PATH/vimrc $HOME/.vimrc
+# info "Copying config files from github"
+# cp $CFG_PATH/nethackrc $HOME/.nethackrc
+# cp $CFG_PATH/tmux.conf $HOME/.tmux.conf
+# cp $CFG_PATH/vimrc $HOME/.vimrc
 
 source ./scripts/shell-config.sh
 
