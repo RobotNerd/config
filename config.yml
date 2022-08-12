@@ -1,0 +1,40 @@
+---
+user_info:
+  email: 'TODO'
+  name: 'TODO'
+sshd_enabled: False
+applications:
+  all:
+    - docker
+    - git
+    - the_silver_searcher
+    - tmux
+    - vim
+  personal:
+    - nethack
+    - openssh
+    - veracrypt
+  work:
+macos:
+  applications:
+    all:
+      brew:
+        casks:
+          - google-chrome
+          - firefox
+          - gimp
+          - inkscape
+          - iterm2
+          - slack
+          - visual-studio-code
+          - zoom
+    personal:
+    work:
+manjaro_linux:
+  applications:
+    all:
+      - gimp
+      - inkscape
+    snap_applications:
+      - "code --classic"
+      - "slack --classic"

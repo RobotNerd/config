@@ -15,33 +15,33 @@ work_only=''
 
 CFG_PATH='./config-files'
 
-print_usage() {
-  echo "Command usage:"
-  echo "  setup-system.sh -t TARGET"
-  echo
-  echo "  -t TARGET : name of the local *.sh file for the target platform"
-  echo "  -a        : skip platform-specific actions"
-  echo "  -p        : skip package manager application install"
-  echo "  -s        : skip starting sshd"
-  echo "  -u        : skip entry of user details"
-  echo "  -v        : skip vundle install"
-  echo "  -w        : install on a work machine and skip personal applications"
-  exit 0
-}
+# print_usage() {
+#   echo "Command usage:"
+#   echo "  setup-system.sh -t TARGET"
+#   echo
+#   echo "  -t TARGET : name of the local *.sh file for the target platform"
+#   echo "  -a        : skip platform-specific actions"
+#   echo "  -p        : skip package manager application install"
+#   echo "  -s        : skip starting sshd"
+#   echo "  -u        : skip entry of user details"
+#   echo "  -v        : skip vundle install"
+#   echo "  -w        : install on a work machine and skip personal applications"
+#   exit 0
+# }
 
-while getopts 'apst:uvw' flag; do
-  case "${flag}" in
-    a) skip_custom_actions='true' ;;
-    p) skip_package_manager='true' ;;
-    s) skip_sshd='true' ;;
-    t) target="${OPTARG}" ;;
-    u) skip_user_details='true' ;;
-    v) skip_vundle='true' ;;
-    w) work_only='true' ;;
-    *) print_usage
-       exit 1 ;;
-  esac
-done
+# while getopts 'apst:uvw' flag; do
+#   case "${flag}" in
+#     a) skip_custom_actions='true' ;;
+#     p) skip_package_manager='true' ;;
+#     s) skip_sshd='true' ;;
+#     t) target="${OPTARG}" ;;
+#     u) skip_user_details='true' ;;
+#     v) skip_vundle='true' ;;
+#     w) work_only='true' ;;
+#     *) print_usage
+#        exit 1 ;;
+#   esac
+# done
 
 # Load the target specific configuration.
 if [ "$target" == '' ]; then
@@ -67,13 +67,13 @@ if [ "$skip_package_manager" != 'true' ]; then
   install_apps
 fi
 
-if [ ! -f "$HOME/.gitconfig" ]; then
-  info "Configuring git"
-  git config --global user.email $EMAIL
-  git config --global user.name $USERNAME
-  git config --global pager.branch false
-  git config --global pager.diff false
-fi
+# if [ ! -f "$HOME/.gitconfig" ]; then
+#   info "Configuring git"
+#   git config --global user.email $EMAIL
+#   git config --global user.name $USERNAME
+#   git config --global pager.branch false
+#   git config --global pager.diff false
+# fi
 
 info "Copying config files from github"
 cp $CFG_PATH/nethackrc $HOME/.nethackrc
@@ -108,19 +108,19 @@ if [ "$skip_custom_actions" != 'true' ]; then
   custom_teardown
 fi
 
-# Print out list of manual tasks
-echo
-info "Manual setup checklist"
-echo "- Browser extensions"
-echo "  - Lastpass"
-echo "  - uBlock"
-echo "  - Foxy Gestures (Firefox)"
-echo "- Setup security keys"
-echo "  - github"
-echo "- VS Code extensions"
-echo "  - vscode-viml-syntax"
-echo "  - sort lines"
-echo "- Login to services"
-echo "  - Dropbox"
-echo "  - GitHub"
-echo "  - StackOverflow"
+# # Print out list of manual tasks
+# echo
+# info "Manual setup checklist"
+# echo "- Browser extensions"
+# echo "  - Lastpass"
+# echo "  - uBlock"
+# echo "  - Foxy Gestures (Firefox)"
+# echo "- Setup security keys"
+# echo "  - github"
+# echo "- VS Code extensions"
+# echo "  - vscode-viml-syntax"
+# echo "  - sort lines"
+# echo "- Login to services"
+# echo "  - Dropbox"
+# echo "  - GitHub"
+# echo "  - StackOverflow"

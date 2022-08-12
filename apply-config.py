@@ -1,0 +1,83 @@
+#!/usr/bin/python3
+
+import argparse
+
+from lib.logger import Logger
+from lib.git import Git
+from lib.config import Config
+
+CONFIG_PATH = './config.yml'
+
+
+class PlatformConfigMissing(Exception):
+    pass
+
+
+def apply_changes(logger, cfg):
+    Git.configure(logger, cfg)
+    # TODO add additional config changes
+
+
+def parse_cli_args():
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument(
+        'platform',
+        type=str,
+        help=f'target platform (as specified in {CONFIG_PATH})')
+    parser.add_argument(
+        '--work',
+        action='store_true',
+        help='apply config specific to work machine')
+    parser.add_argument(
+        '--personal',
+        action='store_true',
+        help='apply config specific to personal machine')
+    parser.add_argument(
+        '--log-level',
+        type=str,
+        default='info',
+        choices=['info', 'warn', 'error'],
+        help='log level for messaging')
+
+    return parser.parse_args()
+
+
+def show_manual_steps():
+    print('''
+Manual setup checklist:
+- Browser extensions
+  - Lastpass
+  - uBlock
+  - Foxy Gestures (Firefox)
+- Setup security keys
+  - github
+- VS Code extensions
+  - vscode-viml-syntax
+  - sort lines
+- Login to services
+  - Dropbox
+  - GitHub
+  - StackOverflow
+''')
+
+
+def verify_platform_exists(logger, platform, cfg):
+    if cfg.get(platform) is None:
+        msg = f'platform "{platform}" does not exist in {CONFIG_PATH}'
+        logger.error(msg)
+        raise PlatformConfigMissing(msg)
+
+
+def run():
+    args = parse_cli_args()
+    logger = Logger(args.log_level)
+    cfg_loader = Config(logger)
+    cfg = cfg_loader.load(CONFIG_PATH)
+    verify_platform_exists(logger, args.platform, cfg)
+    # apply_changes()
+    show_manual_steps()
+
+
+if __name__ == "__main__":
+    run()
