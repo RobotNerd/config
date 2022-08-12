@@ -2,6 +2,8 @@
 
 import yaml
 
+invalid_placeholder_values = ['TODO']
+
 
 class ConfigFileError(Exception):
     pass
@@ -25,7 +27,7 @@ class Config:
             self.logger.warn(msg)
             cfg['user_info']['email'] = ''
             cfg['user_info']['name'] = ''
-        if not user_info['email']:
+        if not user_info['email'] or user_info['email'].upper().strip() in invalid_placeholder_values:
             user_info['email'] = input('enter your email address: ')
-        if not user_info['name']:
+        if not user_info['name'] or user_info['name'].upper().strip() in invalid_placeholder_values:
             user_info['email'] = input('enter your name: ')
