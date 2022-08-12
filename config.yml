@@ -21,38 +21,58 @@ config_files:
       src: config-files/nethackrc
       dst: $HOME/.nethackrc
   work:
-applications:
-  all:
-    - docker
-    - git
-    - the_silver_searcher
-    - tmux
-    - vim
-  personal:
-    - nethack
-    - openssh
-    - veracrypt
-  work:
+# applications:
+#   all:
+#     - docker
+#     - git
+#     - the_silver_searcher
+#     - tmux
+#     - vim
+#   personal:
+#     - nethack
+#     - openssh
+#     - veracrypt
+#   work:
 macos:
-  applications:
+  brew:
     all:
-      brew:
-        casks:
-          - google-chrome
-          - firefox
-          - gimp
-          - inkscape
-          - iterm2
-          - slack
-          - visual-studio-code
-          - zoom
+      - docker
+      - git
+      - the_silver_searcher
+      - tmux
+      - vim
+    personal:
+      - nethack
+      - openssh
+      - veracrypt
+    work:
+  brew_casks:
+    all:
+      - google-chrome
+      - firefox
+      - gimp
+      - inkscape
+      - iterm2
+      - slack
+      - visual-studio-code
+      - zoom
     personal:
     work:
 manjaro_linux:
-  applications:
+  pacman:
     all:
+      - docker
+      - git
       - gimp
       - inkscape
-    snap_applications:
+      - the_silver_searcher
+      - tmux
+      - vim
+    personal:
+    work:
+  snap_applications:
+    all:
       - "code --classic"
       - "slack --classic"
+    personal:
+    work:

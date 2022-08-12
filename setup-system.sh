@@ -43,12 +43,12 @@ CFG_PATH='./config-files'
 #   esac
 # done
 
-# Load the target specific configuration.
-if [ "$target" == '' ]; then
-  print_usage
-  exit 1
-fi
-source ./$target
+# # Load the target specific configuration.
+# if [ "$target" == '' ]; then
+#   print_usage
+#   exit 1
+# fi
+# source ./$target
 
 # # Get user inputs needed by the script.
 # if [ "$skip_user_details" != 'true' ]; then
@@ -58,14 +58,14 @@ source ./$target
 #   read EMAIL
 # fi
 
-# Execute any custom setup specific to the target platform.
-if [ "$skip_custom_actions" != 'true' ]; then
-  custom_setup
-fi
+# # Execute any custom setup specific to the target platform.
+# if [ "$skip_custom_actions" != 'true' ]; then
+#   custom_setup
+# fi
 
-if [ "$skip_package_manager" != 'true' ]; then
-  install_apps
-fi
+# if [ "$skip_package_manager" != 'true' ]; then
+#   install_apps
+# fi
 
 # if [ ! -f "$HOME/.gitconfig" ]; then
 #   info "Configuring git"
@@ -103,10 +103,10 @@ source ./scripts/shell-config.sh
 # fi
 
 # Execute any custom actions specific to the target platform.
-if [ "$skip_custom_actions" != 'true' ]; then
-  custom_actions
-  custom_teardown
-fi
+# if [ "$skip_custom_actions" != 'true' ]; then
+#   custom_actions
+#   custom_teardown
+# fi
 
 # # Print out list of manual tasks
 # echo

@@ -8,6 +8,7 @@ from lib.git import Git
 from lib.logger import Logger
 from lib.ssh import SSH
 from lib.vim import Vim
+from platforms.macos import MacOS
 
 CONFIG_PATH = './config.yml'
 
@@ -17,11 +18,17 @@ class PlatformConfigMissing(Exception):
 
 
 def apply_changes(logger, args, cfg):
+    install_applications(logger, args, cfg)
     ConfigFiles.copy(logger, args, cfg)
     Git.configure(logger, cfg)
     Vim.vundle(logger, cfg)
     SSH.generate_key(logger, cfg)
     SSH.enable_sshd(logger, cfg)
+
+def install_applications(logger, args, cfg):
+    if args.platform == 'macos':
+        MacOS.setup(logger)
+        MacOS.install_applications(logger, args, cfg)
 
 
 def parse_cli_args():
