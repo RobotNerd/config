@@ -82,13 +82,13 @@ fi
 
 source ./scripts/shell-config.sh
 
-if [ "$skip_vundle" != 'true' ]; then
-  # Vundle setup for vim
-  # See: https://github.com/VundleVim/Vundle.vim
-  rm -fr ~/.vim/bundle
-  git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-  vim +PluginInstall +qall
-fi
+# if [ "$skip_vundle" != 'true' ]; then
+#   # Vundle setup for vim
+#   # See: https://github.com/VundleVim/Vundle.vim
+#   rm -fr ~/.vim/bundle
+#   git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+#   vim +PluginInstall +qall
+# fi
 
 # SSH_KEY="$HOME/.ssh/id_ed25519"
 # if [ ! -f "$SSH_KEY" ]; then

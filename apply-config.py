@@ -7,6 +7,7 @@ from lib.config_files import ConfigFiles
 from lib.git import Git
 from lib.logger import Logger
 from lib.ssh import SSH
+from lib.vim import Vim
 
 CONFIG_PATH = './config.yml'
 
@@ -18,9 +19,9 @@ class PlatformConfigMissing(Exception):
 def apply_changes(logger, args, cfg):
     ConfigFiles.copy(logger, args, cfg)
     Git.configure(logger, cfg)
+    Vim.vundle(logger, cfg)
     SSH.generate_key(logger, cfg)
     SSH.enable_sshd(logger, cfg)
-    # TODO add additional config changes
 
 
 def parse_cli_args():

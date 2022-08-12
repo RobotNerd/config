@@ -7,6 +7,7 @@ ssh:
   generate_ssh_key: False
   ssh_key_path: ed25519
   sshd_enabled: False
+vundle: False
 config_files:
   all:
     - name: tmux
