@@ -50,13 +50,13 @@ if [ "$target" == '' ]; then
 fi
 source ./$target
 
-# Get user inputs needed by the script.
-if [ "$skip_user_details" != 'true' ]; then
-  echo -n "Enter your name: "
-  read USERNAME
-  echo -n "Enter your email: "
-  read EMAIL
-fi
+# # Get user inputs needed by the script.
+# if [ "$skip_user_details" != 'true' ]; then
+#   echo -n "Enter your name: "
+#   read USERNAME
+#   echo -n "Enter your email: "
+#   read EMAIL
+# fi
 
 # Execute any custom setup specific to the target platform.
 if [ "$skip_custom_actions" != 'true' ]; then
@@ -90,17 +90,17 @@ if [ "$skip_vundle" != 'true' ]; then
   vim +PluginInstall +qall
 fi
 
-SSH_KEY="$HOME/.ssh/id_ed25519"
-if [ ! -f "$SSH_KEY" ]; then
-  info "Generate ssh key"
-  ssh-keygen -t ed25519 -C $EMAIL
-fi
+# SSH_KEY="$HOME/.ssh/id_ed25519"
+# if [ ! -f "$SSH_KEY" ]; then
+#   info "Generate ssh key"
+#   ssh-keygen -t ed25519 -C $EMAIL
+# fi
 
-# Enable ssh server
-if [ "$skip_sshd" != 'true' ]; then
-  sudo systemctl enable sshd
-  sudo systemctl start sshd
-fi
+# # Enable ssh server
+# if [ "$skip_sshd" != 'true' ]; then
+#   sudo systemctl enable sshd
+#   sudo systemctl start sshd
+# fi
 
 # Execute any custom actions specific to the target platform.
 if [ "$skip_custom_actions" != 'true' ]; then

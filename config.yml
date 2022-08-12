@@ -2,7 +2,11 @@
 user_info:
   email: 'TODO'
   name: 'TODO'
-sshd_enabled: False
+configure_git_global_settings: False
+ssh:
+  generate_ssh_key: False
+  ssh_key_path: ed25519
+  sshd_enabled: False
 applications:
   all:
     - docker

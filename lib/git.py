@@ -6,6 +6,9 @@ class Git:
 
     @staticmethod
     def configure(logger, cfg):
+        if not cfg['configure_git_global_settings']:
+            return
+
         logger.info('configuring git')
         base_cmd = 'git config --global'.split(' ')
 
