@@ -21,18 +21,6 @@ config_files:
       src: config-files/nethackrc
       dst: $HOME/.nethackrc
   work:
-# applications:
-#   all:
-#     - docker
-#     - git
-#     - the_silver_searcher
-#     - tmux
-#     - vim
-#   personal:
-#     - nethack
-#     - openssh
-#     - veracrypt
-#   work:
 macos:
   brew:
     all:
@@ -76,3 +64,7 @@ manjaro_linux:
       - "slack --classic"
     personal:
     work:
+  zoom:
+    install: False
+    src: https://zoom.us/client/latest/zoom_x86_64.pkg.tar.xz
+    dst: $HOME/Downloads/$ZOOM_PKG

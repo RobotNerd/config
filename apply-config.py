@@ -8,7 +8,9 @@ from lib.git import Git
 from lib.logger import Logger
 from lib.ssh import SSH
 from lib.vim import Vim
+
 from platforms.macos import MacOS
+from platforms.manjaro import Manjaro
 
 CONFIG_PATH = './config.yml'
 
@@ -29,6 +31,8 @@ def install_applications(logger, args, cfg):
     if args.platform == 'macos':
         MacOS.setup(logger)
         MacOS.install_applications(logger, args, cfg)
+    elif args.platform == 'manjaro_linux':
+        Manjaro.install_applications(logger, args, cfg)
 
 
 def parse_cli_args():
