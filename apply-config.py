@@ -6,6 +6,7 @@ from lib.config import Config
 from lib.config_files import ConfigFiles
 from lib.git import Git
 from lib.logger import Logger
+from lib.shell import Shell
 from lib.ssh import SSH
 from lib.vim import Vim
 
@@ -22,6 +23,7 @@ class PlatformConfigMissing(Exception):
 def apply_changes(logger, args, cfg):
     install_applications(logger, args, cfg)
     ConfigFiles.copy(logger, args, cfg)
+    Shell.add_custom_shell_config(logger, cfg)
     Git.configure(logger, cfg)
     Vim.vundle(logger, cfg)
     SSH.generate_key(logger, cfg)

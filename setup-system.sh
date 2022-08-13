@@ -2,18 +2,18 @@
 
 set -e
 
-source ./scripts/applications.sh
-source ./scripts/messaging.sh
+# source ./scripts/applications.sh
+# source ./scripts/messaging.sh
 
-skip_custom_actions=''
-skip_package_manager=''
-skip_sshd=''
-skip_user_details=''
-skip_vundle=''
-target=''
-work_only=''
+# skip_custom_actions=''
+# skip_package_manager=''
+# skip_sshd=''
+# skip_user_details=''
+# skip_vundle=''
+# target=''
+# work_only=''
 
-CFG_PATH='./config-files'
+# CFG_PATH='./config-files'
 
 # print_usage() {
 #   echo "Command usage:"
@@ -80,7 +80,7 @@ CFG_PATH='./config-files'
 # cp $CFG_PATH/tmux.conf $HOME/.tmux.conf
 # cp $CFG_PATH/vimrc $HOME/.vimrc
 
-source ./scripts/shell-config.sh
+# source ./scripts/shell-config.sh
 
 # if [ "$skip_vundle" != 'true' ]; then
 #   # Vundle setup for vim

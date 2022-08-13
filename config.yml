@@ -10,6 +10,9 @@ ssh:
 vundle: False
 config_files:
   all:
+    - name: rc-custom
+      src: config-files/rc-custom
+      dst: $HOME/.rc-custom
     - name: tmux
       src: config-files/tmux.conf
       dst: $HOME/.tmux.conf

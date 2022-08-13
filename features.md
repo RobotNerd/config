@@ -7,7 +7,7 @@
 <!-- - add yaml config file for install options using default config
   - have sections with OS-specific options -->
 <!-- - argparse -->
-- add rc-custom
+<!-- - add rc-custom -->
 <!-- - install packages -->
 <!-- - gitconfig -->
 <!-- - copy config files to host machine (nethackrc, vimrc, etc) -->
@@ -17,3 +17,5 @@
 <!-- - show todo list of manual steps -->
 <!-- - macos
   - install brew and then use it to install apps -->
+- add unit tests
+- add example manual test procedure using a docker container
