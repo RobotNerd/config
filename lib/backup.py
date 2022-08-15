@@ -10,5 +10,5 @@ class Backup:
     def file(logger, path):
         if os.path.exists(path):
             backup_path = path + f'.bkp.{round(time.time())}'
-            logger.warn(f'file {path} exists\n  making backup {backup_path}')
+            logger.warn(f'file {path} exists.\n      Making backup: {backup_path}')
             os.rename(path, backup_path)

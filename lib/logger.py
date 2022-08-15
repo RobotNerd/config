@@ -11,7 +11,7 @@ class Logger():
         'error': 2
     }
 
-    def __init__(self, level):
+    def __init__(self, level='info'):
         key = level.lower().strip()
         self._level = self.levels.get(key)
         if self._level is None:
@@ -19,11 +19,11 @@ class Logger():
 
     def info(self, msg):
         if self._level <= self.levels['info']:
-            print(f'INFO:  {msg}')
+            print(f'INFO: {msg}')
 
     def warn(self, msg):
         if self._level <= self.levels['warn']:
-            print(f'{Fore.YELLOW}WARN:  {msg}{Style.RESET_ALL}')
+            print(f'{Fore.YELLOW}WARN: {msg}{Style.RESET_ALL}')
 
     def error(self, msg):
         if self._level <= self.levels['error']:
