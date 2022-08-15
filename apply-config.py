@@ -29,6 +29,7 @@ def apply_changes(logger, args, cfg):
     SSH.generate_key(logger, cfg)
     SSH.enable_sshd(logger, cfg)
 
+
 def install_applications(logger, args, cfg):
     if args.platform == 'macos':
         MacOS.setup(logger)
