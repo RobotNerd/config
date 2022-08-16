@@ -46,19 +46,25 @@ def parse_cli_args():
         type=str,
         help=f'target platform (as specified in {CONFIG_PATH})')
     parser.add_argument(
-        '--work',
-        action='store_true',
-        help='apply config specific to work machine')
-    parser.add_argument(
-        '--personal',
-        action='store_true',
-        help='apply config specific to personal machine')
+        '--config-path',
+        type=str,
+        default=CONFIG_PATH,
+        help='path to config file'
+    )
     parser.add_argument(
         '--log-level',
         type=str,
         default='info',
         choices=['info', 'warn', 'error'],
         help='log level for messaging')
+    parser.add_argument(
+        '--personal',
+        action='store_true',
+        help='apply config specific to personal machine')
+    parser.add_argument(
+        '--work',
+        action='store_true',
+        help='apply config specific to work machine')
 
     return parser.parse_args()
 
@@ -93,9 +99,9 @@ def run():
     args = parse_cli_args()
     logger = Logger(args.log_level)
     cfg_loader = Config(logger)
-    cfg = cfg_loader.load(CONFIG_PATH)
+    cfg = cfg_loader.load(args.config_path)
     verify_platform_exists(logger, args.platform, cfg)
-    # apply_changes(logger, args, cfg)  # TODO temporarily disabled to prevent applying it to my system
+    apply_changes(logger, args, cfg)
     show_manual_steps()
 
 

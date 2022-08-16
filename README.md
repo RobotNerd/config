@@ -4,6 +4,8 @@ A python script to automatically apply configuration to unix-like systems.
 
 ## Usage
 
+> NOTE: Run the command `python3 apply-config.py -h` to see command line options.
+
 -Get the script using one of these options:
   - Clone the repository.
   - Download the zipped release and extract it. This option is useful if you
@@ -35,6 +37,8 @@ cd config
 > using the system package manager.
 
 ## config.yml
+
+The file `config.yml` contains the 
 
 > TODO
 
