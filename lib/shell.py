@@ -1,6 +1,6 @@
 #!/usr/bin/python3
-from lib.command import Cmd
 import os
+import lib.manual_config as manual_config
 
 
 class UnsupportedShell(Exception):
@@ -17,7 +17,7 @@ class Shell:
             logger.info(f'.rc_custom already referenced in {rc_file}; no changes made')
             return
         Shell._append_rc_custom_cmd(rc_file, rc_custom)
-        # Cmd.run(f'source {rc_file}'.split(' '))  # TODO add step to manual output to run this `source` command
+        manual_config.add_step('Shell scripts', f'run command: source {rc_file}')
 
     @staticmethod
     def _get_or_create_rc_file(logger):

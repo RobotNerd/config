@@ -14,6 +14,8 @@ from platforms.alpine import Alpine
 from platforms.macos import MacOS
 from platforms.manjaro import Manjaro
 
+import lib.manual_config as manual_config
+
 CONFIG_PATH = './config.yml'
 
 
@@ -72,22 +74,7 @@ def parse_cli_args():
 
 
 def show_manual_steps():
-    print('''
-Manual setup checklist:
-- Browser extensions
-  - Lastpass
-  - uBlock
-  - Foxy Gestures (Firefox)
-- Setup security keys
-  - github
-- VS Code extensions
-  - vscode-viml-syntax
-  - sort lines
-- Login to services
-  - Dropbox
-  - GitHub
-  - StackOverflow
-''')
+    print(manual_config.to_string())
 
 
 def verify_platform_exists(logger, platform, cfg):
