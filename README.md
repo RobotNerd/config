@@ -50,4 +50,24 @@ The file `config.yml` contains the
 
 ### Manual test with docker
 
-> TODO
+Follow these steps to spin up a docker image and apply config changes to it.
+
+- Build the image. This will copy the config script code into the container.
+```shell
+docker build -t alpine-test:test -f Dockerfile-test .
+```
+
+- Start the container.
+```shell
+docker run -it alpine-test:test /bin/ash
+```
+
+> NOTE: If you get an error about the image platform not matching the host
+> platform, try adding `--platform linux/amd64` to the above command.
+
+- Apply configuration changes.
+```shell
+python3 apply-config.py alpine_linux --personal --work --config-path ./config.yml
+```
+
+- Verify that the configuration changes are applied.

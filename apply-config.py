@@ -10,6 +10,7 @@ from lib.shell import Shell
 from lib.ssh import SSH
 from lib.vim import Vim
 
+from platforms.alpine import Alpine
 from platforms.macos import MacOS
 from platforms.manjaro import Manjaro
 
@@ -36,7 +37,8 @@ def install_applications(logger, args, cfg):
         MacOS.install_applications(logger, args, cfg)
     elif args.platform == 'manjaro_linux':
         Manjaro.install_applications(logger, args, cfg)
-
+    elif args.platform == 'alpine_linux':
+        Alpine.install_applications(logger, args, cfg)
 
 def parse_cli_args():
     parser = argparse.ArgumentParser()

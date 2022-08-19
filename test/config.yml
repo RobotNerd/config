@@ -1,0 +1,35 @@
+---
+user_info:
+  email: 'bob@test.test'
+  name: 'Bob Newhart'
+configure_git_global_settings: True
+ssh:
+  generate_ssh_key: True
+  ssh_key_path: ed25519
+  sshd_enabled: True
+vundle: True
+config_files:
+  all:
+    - name: rc-custom
+      src: config-files/rc-custom
+      dst: $HOME/.rc-custom
+    - name: tmux
+      src: config-files/tmux.conf
+      dst: $HOME/.tmux.conf
+    - name: vim
+      src: config-files/vimrc
+      dst: $HOME/.vimrc
+  personal:
+    - name: nethack
+      src: config-files/nethackrc
+      dst: $HOME/.nethackrc
+  work:
+alpine_linux:
+  apk:
+    all:
+      - git
+      - the_silver_searcher
+    personal:
+      - tmux
+    work:
+      - vim      

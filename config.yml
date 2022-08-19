@@ -27,8 +27,8 @@ config_files:
 macos:
   brew:
     all:
-      - docker
       - git
+      - homebrew/cask/docker
       - the_silver_searcher
       - tmux
       - vim
