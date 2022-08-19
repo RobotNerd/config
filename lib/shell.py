@@ -16,27 +16,42 @@ class Shell:
         if Shell._contains_rc_custom_cmd(rc_file, rc_custom):
             logger.info(f'.rc_custom already referenced in {rc_file}; no changes made')
             return
-        Shell._append_rc_custom_cmd(rc_custom)
-        Cmd.run(f'source {rc_file}'.split(' '))
+        Shell._append_rc_custom_cmd(rc_file, rc_custom)
+        # Cmd.run(f'source {rc_file}'.split(' '))  # TODO add step to manual output to run this `source` command
 
     @staticmethod
     def _get_or_create_rc_file(logger):
-        shell = os.environ['SHELL']
+        shell = Shell._get_shell_name()
         if shell.endswith('bash'):
             rc_file = os.path.expandvars('$HOME/.bashrc')
         elif shell.endswith('zsh'):
             rc_file = os.path.expandvars('$HOME/.zshrc')
+        elif shell.endswith('ash'):
+            rc_file = os.path.expandvars('$HOME/.profile')
         else:
             raise UnsupportedShell(shell)
         
         if not os.path.exists(rc_file):
             logger.warn(f'rc file {rc_file} does not exist; creating file')
+            open(rc_file, 'a').close()
 
         return rc_file
     
     @staticmethod
-    def _append_rc_custom(rc_custom):
-        with open('rc_file', 'a') as file:
+    def _get_shell_name():
+        shell = os.environ.get('SHELL')
+        if shell is None:
+            if os.path.exists('/bin/ash'):
+                shell = 'ash'
+            elif os.path.exists('/bin/bash'):
+                shell = 'bash'
+            elif os.path.exists('/bin/zash'):
+                shell = 'zsh'
+        return shell
+    
+    @staticmethod
+    def _append_rc_custom_cmd(rc_file, rc_custom):
+        with open(rc_file, 'a') as file:
             file.write(f'\nsource {rc_custom}\n')
     
     @staticmethod
