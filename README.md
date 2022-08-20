@@ -70,4 +70,7 @@ docker run -it alpine-test:test /bin/ash
 python3 apply-config.py alpine_linux --personal --work --config-path ./config.yml
 ```
 
+> NOTE: Alternatively, all of the above commands can be concatenated into one command:
+> `docker build -t alpine-test:test -f Dockerfile-test . && docker run -it alpine-test:test /bin/ash -c "python3 apply-config.py alpine_linux --personal --work --config-path ./config.yml; /bin/ash"`
+
 - Verify that the configuration changes are applied.
