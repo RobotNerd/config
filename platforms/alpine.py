@@ -17,4 +17,4 @@ class Alpine:
             packages += apk['personal']
         if args.work:
             packages += apk['work']
-        Cmd.run(['apk', 'add'] + packages)
+        Cmd.run(['apk', 'add', '--no-cache'] + packages)
