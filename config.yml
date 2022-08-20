@@ -5,7 +5,8 @@ user_info:
 configure_git_global_settings: False
 ssh:
   generate_ssh_key: False
-  ssh_key_path: ed25519
+  ssh_algorithm: ed25519
+  ssh_keyfile_path: $HOME/.ssh/id_ed25519
   sshd_enabled: False
 vundle: False
 config_files:

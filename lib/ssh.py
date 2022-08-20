@@ -1,7 +1,8 @@
 #!/usr/bin/python3
+import os
+
 from lib.backup import Backup
 from lib.command import Cmd
-import os
 
 
 class SSH:
@@ -12,21 +13,26 @@ class SSH:
             return
 
         logger.info('generating ssh key')
-        SSH.backup_existing_file(logger, cfg)
-        cmd = f"ssh-keygen -t {cfg['ssh']['ssh_keyfile']} -C {cfg['user_info']['email']}".split()
+        keyfile_path = os.path.expandvars(cfg['ssh']['ssh_keyfile_path'])
+        Backup.file(logger, keyfile_path)
+        # See stackoverflow for command details: https://stackoverflow.com/a/43235320/241025
+        cmd = [
+            'ssh-keygen', '-q',
+            '-N', '""',  # Do not use a passphrase.
+            '-t', cfg['ssh']['ssh_algorithm'],
+            '-f', keyfile_path,
+            '-C', cfg['user_info']['email'],
+        ]
         Cmd.run(cmd)
-    
-    @staticmethod
-    def backup_existing_file(logger, cfg):
-        path = os.path.expandvars(f"$HOME/.ssh/id_{cfg['ssh']['ssh_keyfile']}")
-        Backup.file(logger, path)
 
     @staticmethod
     def enable_sshd(logger, cfg):
         if not cfg['ssh']['sshd_enabled']:
             return
+
+        # TODO the commands differ for each operating system
         
         logger.info('enabling sshd')
-        Cmd.run('sudo systemctl enable sshd'.split())
-        Cmd.run('sudo systemctl start sshd'.split())
+        Cmd.run('systemctl enable sshd'.split())
+        Cmd.run('systemctl start sshd'.split())
         raise NotImplementedError()

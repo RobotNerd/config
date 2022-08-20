@@ -5,7 +5,8 @@ user_info:
 configure_git_global_settings: True
 ssh:
   generate_ssh_key: True
-  ssh_key_path: ed25519
+  ssh_algorithm: ed25519
+  ssh_keyfile_path: $HOME/.ssh/id_ed25519
   sshd_enabled: True
 vundle: True
 config_files:
@@ -28,6 +29,7 @@ alpine_linux:
   apk:
     all:
       - git
+      - openssh-keygen
       - the_silver_searcher
     personal:
       - tmux
