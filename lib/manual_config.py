@@ -4,7 +4,7 @@
 
 
 _steps = {
-    'Browser extensions': [
+    'Add firefox browser extensions': [
         'Lastpass',
         'uBlock',
         'Foxy Gestures (Firefox)',
@@ -12,7 +12,7 @@ _steps = {
     'Setup security keys': [
         'github',
     ],
-    'VS Code extensions': [
+    'Add VS Code extensions': [
         'vscode-viml-syntax',
         'sort lines',
     ],
@@ -24,8 +24,8 @@ _steps = {
 }
 
 def to_string():
-    output = ''
-    for group, steps in _steps.values():
+    output = '\nManual steps needed to complete configuration:\n'
+    for group, steps in _steps.items():
         output += f'- {group}\n'
         for step in steps:
             output += f'  - {step}\n'

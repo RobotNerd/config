@@ -16,12 +16,15 @@ class Alpine:
 
         self.logger.info('install packages')
         apk = platform['apk']
-        packages = apk['all']
-        if self.args.personal:
+        packages = []
+        if apk['all']:
+            packages = apk['all']
+        if self.args.personal and apk['personal']:
             packages += apk['personal']
-        if self.args.work:
+        if self.args.work and apk['work']:
             packages += apk['work']
-        Cmd.run(['apk', 'add', '--no-cache'] + packages)
+        if packages:
+            Cmd.run(['apk', 'add', '--no-cache'] + packages)
     
     def enable_sshd(self):
         if not self.cfg['ssh']['sshd_enabled']:

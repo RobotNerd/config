@@ -21,21 +21,31 @@ class MacOS:
         ])
     
     def install_applications(self):
+        platform = self.cfg['macos']
+        brew = platform['brew']
+
         self.logger.info('installing brew applications')
-        packages = self.cfg['macos']['brew']['all']
-        if self.args.personal:
-            packages += self.cfg['macos']['brew']['personal']
-        if self.args.work:
-            packages += self.cfg['macos']['brew']['work']
-        Cmd.run(['brew', 'install'] + packages)
+        packages = []
+        if brew['all']:
+            packages = brew['all']
+        if self.args.personal and brew['personal']:
+            packages += brew['personal']
+        if self.args.work and brew['work']:
+            packages += brew['work']
+        if packages:
+            Cmd.run(['brew', 'install'] + packages)
 
         self.logger.info('installing brew cask applications')
-        casks = self.cfg['macos']['brew_casks']['all']
-        if self.args.personal:
-            casks += self.cfg['macos']['brew_casks']['personal']
-        if self.args.work:
-            casks += self.cfg['macos']['brew_casks']['work']
-        Cmd.run(['brew', 'install', '--cask'] + casks)
+        brew = platform['brew_casks']
+        packages = []
+        if brew['all']:
+            packages = brew['all']
+        if self.args.personal and brew['personal']:
+            casks += brew['personal']
+        if self.args.work and brew['work']:
+            casks += brew['work']
+        if casks:
+            Cmd.run(['brew', 'install', '--cask'] + casks)
 
     def enable_sshd(self):
         if not self.cfg['ssh']['sshd_enabled']:

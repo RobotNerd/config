@@ -15,21 +15,27 @@ class Manjaro:
 
         self.logger.info('install packages')
         pacman = platform['pacman']
-        packages = pacman['all']
-        if self.args.personal:
+        packages = []
+        if pacman['all']:
+            packages = pacman['all']
+        if self.args.personal and pacman['personal']:
             packages += pacman['personal']
-        if self.args.work:
+        if self.args.work and pacman['work']:
             packages += pacman['work']
-        Cmd.run(['sudo', 'pacman', '-Syu', '--noconfirm'] + packages)
+        if packages:
+            Cmd.run(['sudo', 'pacman', '-Syu', '--noconfirm'] + packages)
     
         self.logger.info('installing packages with snap')
         snap = platform['snap_applications']
-        snap_packages = snap['all']
-        if self.args.personal:
+        snap = []
+        if snap['all']:
+            snap_packages = snap['all']
+        if self.args.personal and snap['personal']:
             snap_packages += snap['personal']
-        if self.args.work:
+        if self.args.work and snap['work']:
             snap_packages += snap['work']
-        Cmd.run(['sudo', 'snap', 'install'] + snap_packages)
+        if snap_packages:
+            Cmd.run(['sudo', 'snap', 'install'] + snap_packages)
 
         self._install_zoom()
     
