@@ -5,16 +5,26 @@ from lib.command import Cmd
 class Alpine:
 
     '''Strictly for testing config changes to docker containers.'''
-    
-    @staticmethod
-    def install_applications(logger, args, cfg):
-        platform = cfg['alpine_linux']
 
-        logger.info('install packages')
+    def __init__(self, logger, args, cfg):
+        self.args = args
+        self.cfg = cfg
+        self.logger = logger
+    
+    def install_applications(self):
+        platform = self.cfg['alpine_linux']
+
+        self.logger.info('install packages')
         apk = platform['apk']
         packages = apk['all']
-        if args.personal:
+        if self.args.personal:
             packages += apk['personal']
-        if args.work:
+        if self.args.work:
             packages += apk['work']
         Cmd.run(['apk', 'add', '--no-cache'] + packages)
+    
+    def enable_sshd(self):
+        if not self.cfg['ssh']['sshd_enabled']:
+            return
+
+        self.logger.info('skipping sshd enable for alpine docker container')

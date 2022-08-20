@@ -23,24 +23,33 @@ class PlatformConfigMissing(Exception):
     pass
 
 
+class UnrecognizedPlatform(Exception):
+    pass
+
+
 def apply_changes(logger, args, cfg):
-    install_applications(logger, args, cfg)
+    platform = get_platform(logger, args, cfg)
+    platform.install_applications()
     ConfigFiles.copy(logger, args, cfg)
     Shell.add_custom_shell_config(logger, cfg)
     Git.configure(logger, cfg)
     Vim.vundle(logger, cfg)
     SSH.generate_key(logger, cfg)
-    SSH.enable_sshd(logger, cfg)
+    platform.enable_sshd()
 
 
-def install_applications(logger, args, cfg):
+def get_platform(logger, args, cfg):
+    platform = None
     if args.platform == 'macos':
-        MacOS.setup(logger)
-        MacOS.install_applications(logger, args, cfg)
+        platform = MacOS(logger, args, cfg)
     elif args.platform == 'manjaro_linux':
-        Manjaro.install_applications(logger, args, cfg)
+        platform = Manjaro(logger, args, cfg)
     elif args.platform == 'alpine_linux':
-        Alpine.install_applications(logger, args, cfg)
+        platform = Alpine(logger, args, cfg)
+    else:
+        raise UnrecognizedPlatform(args.platform)
+    return platform
+
 
 def parse_cli_args():
     parser = argparse.ArgumentParser()

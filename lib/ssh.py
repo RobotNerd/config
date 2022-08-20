@@ -24,15 +24,3 @@ class SSH:
             '-C', cfg['user_info']['email'],
         ]
         Cmd.run(cmd)
-
-    @staticmethod
-    def enable_sshd(logger, cfg):
-        if not cfg['ssh']['sshd_enabled']:
-            return
-
-        # TODO the commands differ for each operating system
-        
-        logger.info('enabling sshd')
-        Cmd.run('systemctl enable sshd'.split())
-        Cmd.run('systemctl start sshd'.split())
-        raise NotImplementedError()

@@ -1,32 +1,45 @@
 #!/usr/bin/python3
+from inspect import ArgSpec
 from lib.command import Cmd
 
 
 class MacOS:
 
-    @staticmethod
-    def setup(logger):
-        logger.info('installing homebrew')
+    def __init__(self, logger, args, cfg):
+        self.args = args
+        self.cfg = cfg
+        self.logger = logger
+        self._install_homebrew()
+        # TODO prompt for sudo pwd
+
+    def _install_homebrew(self):
+        self.logger.info('installing homebrew')
         Cmd.run([
             '/bin/bash',
             '-c',
             '"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
         ])
     
-    @staticmethod
-    def install_applications(logger, args, cfg):
-        logger.info('installing brew applications')
-        packages = cfg['macos']['brew']['all']
-        if args.personal:
-            packages += cfg['macos']['brew']['personal']
-        if args.work:
-            packages += cfg['macos']['brew']['work']
+    def install_applications(self):
+        self.logger.info('installing brew applications')
+        packages = self.cfg['macos']['brew']['all']
+        if self.args.personal:
+            packages += self.cfg['macos']['brew']['personal']
+        if self.args.work:
+            packages += self.cfg['macos']['brew']['work']
         Cmd.run(['brew', 'install'] + packages)
 
-        logger.info('installing brew cask applications')
-        casks = cfg['macos']['brew_casks']['all']
-        if args.personal:
-            casks += cfg['macos']['brew_casks']['personal']
-        if args.work:
-            casks += cfg['macos']['brew_casks']['work']
+        self.logger.info('installing brew cask applications')
+        casks = self.cfg['macos']['brew_casks']['all']
+        if self.args.personal:
+            casks += self.cfg['macos']['brew_casks']['personal']
+        if self.args.work:
+            casks += self.cfg['macos']['brew_casks']['work']
         Cmd.run(['brew', 'install', '--cask'] + casks)
+
+    def enable_sshd(self):
+        if not self.cfg['ssh']['sshd_enabled']:
+            return
+
+        self.logger.info('enabling sshd')
+        Cmd.run('sudo systemsetup -setremotelogin on'.split(' '))

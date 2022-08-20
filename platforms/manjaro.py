@@ -3,38 +3,50 @@ from lib.command import Cmd
 
 
 class Manjaro:
-    
-    @staticmethod
-    def install_applications(logger, args, cfg):
-        platform = cfg['manjaro_linux']
 
-        logger.info('install packages')
+    def __init__(self, logger, args, cfg):
+        self.args = args
+        self.cfg = cfg
+        self.logger = logger
+        # TODO prompt for sudo pwd
+    
+    def install_applications(self):
+        platform = self.cfg['manjaro_linux']
+
+        self.logger.info('install packages')
         pacman = platform['pacman']
         packages = pacman['all']
-        if args.personal:
+        if self.args.personal:
             packages += pacman['personal']
-        if args.work:
+        if self.args.work:
             packages += pacman['work']
         Cmd.run(['sudo', 'pacman', '-Syu', '--noconfirm'] + packages)
     
-        logger.info('installing packages with snap')
+        self.logger.info('installing packages with snap')
         snap = platform['snap_applications']
         snap_packages = snap['all']
-        if args.personal:
+        if self.args.personal:
             snap_packages += snap['personal']
-        if args.work:
+        if self.args.work:
             snap_packages += snap['work']
         Cmd.run(['sudo', 'snap', 'install'] + snap_packages)
 
-        Manjaro._install_zoom(logger, cfg)
+        self._install_zoom()
     
-    @staticmethod
-    def _install_zoom(logger, cfg):
-        if not cfg['manjaro_linux']['zoom']['install']:
+    def _install_zoom(self):
+        if not self.cfg['manjaro_linux']['zoom']['install']:
             return
         
-        src = cfg['manjaro_linux']['zoom']['src']
-        dst = cfg['manjaro_linux']['zoom']['dst']
+        src = self.cfg['manjaro_linux']['zoom']['src']
+        dst = self.cfg['manjaro_linux']['zoom']['dst']
 
         Cmd.run(f'wget {src} -O {dst}'.split(' '))
         Cmd.run(f'sudo pacman -U --noconfirm {dst}'.split(' '))
+    
+    def enable_sshd(self):
+        if not self.cfg['ssh']['sshd_enabled']:
+            return
+
+        self.logger.info('enabling sshd')
+        Cmd.run('systemctl enable sshd'.split())
+        Cmd.run('systemctl start sshd'.split())
