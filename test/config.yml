@@ -34,4 +34,4 @@ alpine_linux:
     personal:
       - tmux
     work:
-      # - vim
+      - vim
