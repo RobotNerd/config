@@ -18,5 +18,6 @@ class ConfigFiles:
             logger.info(f"copying {path['name']}")
             src = os.path.expandvars(path['src'])
             dst = os.path.expandvars(path['dst'])
-            Backup.file(logger, dst)
+            if Backup.need_backup(src, dst):
+                Backup.file(logger, dst)
             shutil.copy(src, dst)
