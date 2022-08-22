@@ -6,7 +6,7 @@ from lib.config import Config
 from lib import config_files
 from lib import git
 from lib.logger import Logger
-from lib.shell import Shell
+from lib import shell
 from lib.ssh import SSH
 from lib.vim import Vim
 
@@ -31,7 +31,7 @@ def apply_changes(logger, args, cfg):
     platform = get_platform(logger, args, cfg)
     platform.install_applications()
     config_files.copy(logger, args, cfg)
-    Shell.add_custom_shell_config(logger, cfg)
+    shell.add_custom_shell_config(logger, cfg)
     git.configure(logger, cfg)
     Vim.vundle(logger, cfg)
     SSH.generate_key(logger, cfg)
