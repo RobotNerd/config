@@ -7,7 +7,7 @@ from lib import config_files
 from lib import git
 from lib.logger import Logger
 from lib import shell
-from lib.ssh import SSH
+from lib import ssh
 from lib.vim import Vim
 
 from platforms.alpine import Alpine
@@ -34,7 +34,7 @@ def apply_changes(logger, args, cfg):
     shell.add_custom_shell_config(logger, cfg)
     git.configure(logger, cfg)
     Vim.vundle(logger, cfg)
-    SSH.generate_key(logger, cfg)
+    ssh.generate_key(logger, cfg)
     platform.enable_sshd()
 
 
