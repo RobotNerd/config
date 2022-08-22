@@ -3,7 +3,7 @@
 import argparse
 
 from lib.config import Config
-from lib.config_files import ConfigFiles
+from lib import config_files
 from lib.git import Git
 from lib.logger import Logger
 from lib.shell import Shell
@@ -30,7 +30,7 @@ class UnrecognizedPlatform(Exception):
 def apply_changes(logger, args, cfg):
     platform = get_platform(logger, args, cfg)
     platform.install_applications()
-    ConfigFiles.copy(logger, args, cfg)
+    config_files.copy(logger, args, cfg)
     Shell.add_custom_shell_config(logger, cfg)
     Git.configure(logger, cfg)
     Vim.vundle(logger, cfg)
