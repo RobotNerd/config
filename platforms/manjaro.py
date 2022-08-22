@@ -8,7 +8,7 @@ class Manjaro:
         self.args = args
         self.cfg = cfg
         self.logger = logger
-        # TODO prompt for sudo pwd
+        logger.info('Enter sudo password when prompted')
     
     def install_applications(self):
         platform = self.cfg['manjaro_linux']

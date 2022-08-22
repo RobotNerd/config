@@ -9,7 +9,7 @@ class MacOS:
         self.cfg = cfg
         self.logger = logger
         self._install_homebrew()
-        # TODO prompt for sudo pwd
+        logger.info('Enter sudo password when prompted')
 
     def _install_homebrew(self):
         self.logger.info('installing homebrew')
