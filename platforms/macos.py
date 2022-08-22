@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-from inspect import ArgSpec
 from lib import cmd
 
 

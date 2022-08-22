@@ -8,7 +8,7 @@ from lib import git
 from lib.logger import Logger
 from lib import shell
 from lib import ssh
-from lib.vim import Vim
+from lib import vim
 
 from platforms.alpine import Alpine
 from platforms.macos import MacOS
@@ -33,7 +33,7 @@ def apply_changes(logger, args, cfg):
     config_files.copy(logger, args, cfg)
     shell.add_custom_shell_config(logger, cfg)
     git.configure(logger, cfg)
-    Vim.vundle(logger, cfg)
+    vim.vundle(logger, cfg)
     ssh.generate_key(logger, cfg)
     platform.enable_sshd()
 
