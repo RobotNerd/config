@@ -2,7 +2,7 @@
 import os
 
 from lib import backup
-from lib.command import Cmd
+from lib import cmd
 
 
 class SSH:
@@ -16,11 +16,11 @@ class SSH:
         keyfile_path = os.path.expandvars(cfg['ssh']['ssh_keyfile_path'])
         backup.to_file(logger, keyfile_path)
         # See stackoverflow for command details: https://stackoverflow.com/a/43235320/241025
-        cmd = [
+        command = [
             'ssh-keygen', '-q',
             '-N', '""',  # Do not use a passphrase.
             '-t', cfg['ssh']['ssh_algorithm'],
             '-f', keyfile_path,
             '-C', cfg['user_info']['email'],
         ]
-        Cmd.run(cmd)
+        cmd.run(command)

@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-from lib.command import Cmd
+from lib import cmd
 
 
 class Alpine:
@@ -24,7 +24,7 @@ class Alpine:
         if self.args.work and apk['work']:
             packages += apk['work']
         if packages:
-            Cmd.run(['apk', 'add', '--no-cache'] + packages)
+            cmd.run(['apk', 'add', '--no-cache'] + packages)
     
     def enable_sshd(self):
         if not self.cfg['ssh']['sshd_enabled']:

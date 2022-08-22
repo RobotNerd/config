@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-from lib.command import Cmd
+from lib import cmd
 
 
 class Manjaro:
@@ -23,7 +23,7 @@ class Manjaro:
         if self.args.work and pacman['work']:
             packages += pacman['work']
         if packages:
-            Cmd.run(['sudo', 'pacman', '-Syu', '--noconfirm'] + packages)
+            cmd.run(['sudo', 'pacman', '-Syu', '--noconfirm'] + packages)
     
         self.logger.info('installing packages with snap')
         snap = platform['snap_applications']
@@ -35,7 +35,7 @@ class Manjaro:
         if self.args.work and snap['work']:
             snap_packages += snap['work']
         if snap_packages:
-            Cmd.run(['sudo', 'snap', 'install'] + snap_packages)
+            cmd.run(['sudo', 'snap', 'install'] + snap_packages)
 
         self._install_zoom()
     
@@ -46,13 +46,13 @@ class Manjaro:
         src = self.cfg['manjaro_linux']['zoom']['src']
         dst = self.cfg['manjaro_linux']['zoom']['dst']
 
-        Cmd.run(f'wget {src} -O {dst}'.split(' '))
-        Cmd.run(f'sudo pacman -U --noconfirm {dst}'.split(' '))
+        cmd.run(f'wget {src} -O {dst}'.split(' '))
+        cmd.run(f'sudo pacman -U --noconfirm {dst}'.split(' '))
     
     def enable_sshd(self):
         if not self.cfg['ssh']['sshd_enabled']:
             return
 
         self.logger.info('enabling sshd')
-        Cmd.run('systemctl enable sshd'.split())
-        Cmd.run('systemctl start sshd'.split())
+        cmd.run('systemctl enable sshd'.split())
+        cmd.run('systemctl start sshd'.split())

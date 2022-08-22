@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 from inspect import ArgSpec
-from lib.command import Cmd
+from lib import cmd
 
 
 class MacOS:
@@ -14,7 +14,7 @@ class MacOS:
 
     def _install_homebrew(self):
         self.logger.info('installing homebrew')
-        Cmd.run([
+        cmd.run([
             '/bin/bash',
             '-c',
             '"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
@@ -33,7 +33,7 @@ class MacOS:
         if self.args.work and brew['work']:
             packages += brew['work']
         if packages:
-            Cmd.run(['brew', 'install'] + packages)
+            cmd.run(['brew', 'install'] + packages)
 
         self.logger.info('installing brew cask applications')
         brew = platform['brew_casks']
@@ -45,11 +45,11 @@ class MacOS:
         if self.args.work and brew['work']:
             casks += brew['work']
         if casks:
-            Cmd.run(['brew', 'install', '--cask'] + casks)
+            cmd.run(['brew', 'install', '--cask'] + casks)
 
     def enable_sshd(self):
         if not self.cfg['ssh']['sshd_enabled']:
             return
 
         self.logger.info('enabling sshd')
-        Cmd.run('sudo systemsetup -setremotelogin on'.split(' '))
+        cmd.run('sudo systemsetup -setremotelogin on'.split(' '))
