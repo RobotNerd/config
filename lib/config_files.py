@@ -1,7 +1,8 @@
 #!/usr/bin/python3
-from lib.backup import Backup
 import os
 import shutil
+
+from lib import backup
 
 
 class ConfigFiles:
@@ -18,6 +19,6 @@ class ConfigFiles:
             logger.info(f"copying {path['name']}")
             src = os.path.expandvars(path['src'])
             dst = os.path.expandvars(path['dst'])
-            if Backup.need_backup(src, dst):
-                Backup.file(logger, dst)
+            if backup.is_needed(src, dst):
+                backup.to_file(logger, dst)
             shutil.copy(src, dst)

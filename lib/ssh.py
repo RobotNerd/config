@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 import os
 
-from lib.backup import Backup
+from lib import backup
 from lib.command import Cmd
 
 
@@ -14,7 +14,7 @@ class SSH:
 
         logger.info('generating ssh key')
         keyfile_path = os.path.expandvars(cfg['ssh']['ssh_keyfile_path'])
-        Backup.file(logger, keyfile_path)
+        backup.to_file(logger, keyfile_path)
         # See stackoverflow for command details: https://stackoverflow.com/a/43235320/241025
         cmd = [
             'ssh-keygen', '-q',

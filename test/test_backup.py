@@ -3,7 +3,7 @@ import os
 import unittest
 
 from test import data
-from lib.backup import Backup
+from lib import backup
 from lib.logger import Logger
 
 
@@ -16,7 +16,7 @@ class TestBackup(unittest.TestCase):
 
     def test_backup_file(self):
         data.reset()
-        Backup.file(logger, PATH)
+        backup.to_file(logger, PATH)
         contents = os.listdir(data.BASE_PATH)
         self.assertEqual(len(contents), 0)
 
@@ -25,7 +25,7 @@ class TestBackup(unittest.TestCase):
         contents = os.listdir(data.BASE_PATH)
         self.assertEqual(len(contents), 1)
 
-        Backup.file(logger, PATH)
+        backup.to_file(logger, PATH)
         contents = os.listdir(data.BASE_PATH)
         self.assertEqual(len(contents), 1)
         self.assertIn(f'{FILENAME}.bkp.', contents[0])
