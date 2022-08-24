@@ -13,6 +13,6 @@ def configure(logger, cfg):
     name = cfg['user_info']['name']
 
     cmd.run(base_cmd + f'user.email {email}'.split(' '))
-    cmd.run(base_cmd + f'user.name {name}'.split(' '))
+    cmd.run(base_cmd + ['user.name', name])
     cmd.run(base_cmd + 'pager.branch false'.split(' '))
     cmd.run(base_cmd + 'pager.diff false'.split(' '))

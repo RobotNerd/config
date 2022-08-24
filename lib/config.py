@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-
 import yaml
 
 invalid_placeholder_values = ['TODO']
@@ -18,9 +17,10 @@ class Config:
         self.logger.info('loading yaml config')
         with open(path, 'r') as file:
             cfg = yaml.safe_load(file)
+        self._validate_user_info(cfg)
         return cfg
     
-    def validate_user_info(self, cfg):
+    def _validate_user_info(self, cfg):
         user_info = cfg.get('user_info')
         if user_info is None:
             msg = '"user_info" field is missing from config'
@@ -30,4 +30,4 @@ class Config:
         if not user_info['email'] or user_info['email'].upper().strip() in invalid_placeholder_values:
             user_info['email'] = input('enter your email address: ')
         if not user_info['name'] or user_info['name'].upper().strip() in invalid_placeholder_values:
-            user_info['email'] = input('enter your name: ')
+            user_info['name'] = input('enter your name: ')
