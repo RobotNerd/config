@@ -1,0 +1,74 @@
+---
+user_info:
+  email: 'TODO'
+  name: 'TODO'
+configure_git_global_settings: False
+ssh:
+  generate_ssh_key: False
+  ssh_algorithm: ed25519
+  ssh_keyfile_path: $HOME/.ssh/id_ed25519
+  sshd_enabled: False
+vundle: False
+config_files:
+  all:
+    - name: rc-custom
+      src: config-files/rc-custom
+      dst: $HOME/.rc-custom
+    - name: tmux
+      src: config-files/tmux.conf
+      dst: $HOME/.tmux.conf
+    - name: vim
+      src: config-files/vimrc
+      dst: $HOME/.vimrc
+  personal:
+    - name: nethack
+      src: config-files/nethackrc
+      dst: $HOME/.nethackrc
+  work:
+macos:
+  brew:
+    all:
+      - git
+      - homebrew/cask/docker
+      - the_silver_searcher
+      - tmux
+      - vim
+    personal:
+      - nethack
+      - openssh
+      - veracrypt
+    work:
+  brew_casks:
+    all:
+      - google-chrome
+      - firefox
+      - gimp
+      - inkscape
+      - iterm2
+      - slack
+      - visual-studio-code
+      - zoom
+    personal:
+    work:
+manjaro_linux:
+  pacman:
+    all:
+      - docker
+      - git
+      - gimp
+      - inkscape
+      - the_silver_searcher
+      - tmux
+      - vim
+    personal:
+    work:
+  snap_applications:
+    all:
+      - "code --classic"
+      - "slack --classic"
+    personal:
+    work:
+  zoom:
+    install: False
+    src: https://zoom.us/client/latest/zoom_x86_64.pkg.tar.xz
+    dst: $HOME/Downloads/$ZOOM_PKG
