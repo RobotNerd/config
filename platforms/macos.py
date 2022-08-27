@@ -90,12 +90,9 @@ class MacOS:
         cmd.run('sudo launchctl load -w /System/Library/LaunchDaemons/ssh.plist'.split(' '))
     
     def _add_iterm2_manual_step(self):
-        manual_config.add_step('Configure iterm2 option key', 'Profile > Default > Keys > General')
-        manual_config.add_step('Configure iterm2 option key', 'Left Option Key = Esc+')
-        manual_config.add_step('Configure iterm2 option key', 'Profile > Default > Keys > Key Mappings')
-        manual_config.add_step(
-            'Configure iterm2 option key',
-            'create/change option + left arrow shortcut to send escape sequence "b"')
-        manual_config.add_step(
-            'Configure iterm2 option key',
-            'create/change option + right arrow shortcut to send escape sequence "f"')
+        group = 'Configure iterm2 option key'
+        manual_config.add_step(group, 'Profile > Default > Keys > General')
+        manual_config.add_step(group, 'Left Option Key = Esc+')
+        manual_config.add_step(group, 'Profile > Default > Keys > Key Mappings')
+        manual_config.add_step(group, 'create/change option + left arrow shortcut to send escape sequence "b"')
+        manual_config.add_step(group, 'create/change option + right arrow shortcut to send escape sequence "f"')

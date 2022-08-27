@@ -99,6 +99,7 @@ def run():
     cfg_loader = Config(logger)
     cfg = cfg_loader.load(args.config_path)
     verify_platform_exists(logger, args.platform, cfg)
+    manual_config.set_defaults(args, cfg)
     apply_changes(logger, args, cfg)
     show_manual_steps()
 

@@ -3,25 +3,30 @@
 '''Singleton to manage list of steps that have to be done manually.'''
 
 
-_steps = {
-    'Add firefox browser extensions': [
-        'Lastpass',
-        'uBlock',
-        'Foxy Gestures (Firefox)',
-    ],
-    'Setup security keys': [
-        'github',
-    ],
-    'Add VS Code extensions': [
-        'vscode-viml-syntax',
-        'sort lines',
-    ],
-    'Login to services': [
-        'Dropbox',
-        'GitHub',
-        'StackOverflow',
-    ],
-}
+_steps = {}
+
+def set_defaults(args, cfg):
+    firefox = 'Add firefox browser extensions'
+    add_step(firefox, 'FoxyGestures')
+    add_step(firefox, 'uBlock')
+    if args.personal:
+        add_step(firefox, 'LastPass')
+
+    if cfg['configure_git_global_settings']:
+        git = 'Setup security keys'
+        add_step(git, 'github')
+    
+    vscode = 'Add VS Code extensions'
+    add_step(vscode, 'sort lines')
+    if args.personal:
+        add_step(vscode, 'vscode-viml-syntax')
+
+    services = 'Login to services'
+    add_step(services, 'GitHub')
+    if args.personal:
+        add_step(services, 'Dropbox')
+        add_step(services, 'StackOverflow')
+
 
 def to_string():
     output = '\nManual steps needed to complete configuration:\n'
