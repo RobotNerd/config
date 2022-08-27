@@ -17,6 +17,13 @@ A python script to automatically apply configuration to unix-like systems.
   cd config
   ```
 
+- Install the python packages in `requirements.txt`. (You should ideally install
+  these packages as part of a virtual environment like conda, but that is outside
+  of the scope of this document.)
+  ```
+  pip3 install -r requirements.txt
+  ```
+
 - Modify the `config.yml` file based on your needs. See the section
   [config file](#config-file) for details.
 
