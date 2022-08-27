@@ -10,8 +10,9 @@ class MacOS:
         self.args = args
         self.cfg = cfg
         self.logger = logger
-        self._install_homebrew()
         logger.info('Enter sudo password when prompted')
+        cmd.run(['sudo', 'ls']) # command to invoke su prompt
+        self._install_homebrew()
 
     def _install_homebrew(self):
         self.logger.info('installing homebrew')
@@ -29,7 +30,7 @@ class MacOS:
         old_environ = dict(os.environ)
         new_environ = dict(os.environ)
         try:
-            new_environ['NONINTERACTIVE'] = 1
+            new_environ['NONINTERACTIVE'] = '1'
             os.environ.update(new_environ)
             cmd.run(['/bin/bash', tmp_path])
         finally:
