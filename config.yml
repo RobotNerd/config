@@ -29,7 +29,6 @@ macos:
   brew:
     all:
       - git
-      - homebrew/cask/docker
       - the_silver_searcher
       - tmux
       - vim
@@ -43,6 +42,7 @@ macos:
       - google-chrome
       - firefox
       - gimp
+      - homebrew/cask/docker
       - inkscape
       - iterm2
       - slack
