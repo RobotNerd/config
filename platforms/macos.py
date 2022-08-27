@@ -79,9 +79,19 @@ class MacOS:
         if packages:
             cmd.run(['brew', 'install', '--cask'] + packages)
 
+        if 'iterm2' in packages:
+            self._add_iterm2_manual_step()
+
     def enable_sshd(self):
         if not self.cfg['ssh']['sshd_enabled']:
             return
 
         self.logger.info('enabling sshd')
         cmd.run('sudo launchctl load -w /System/Library/LaunchDaemons/ssh.plist'.split(' '))
+    
+    def _add_iterm2_manual_step(self):
+        manual_config.add_step('Configure iterm2 option key', 'Profile > Default > Keys > General')
+        manual_config.add_step('Configure iterm2 option key', 'Left Option Key = Esc+')
+        manual_config.add_step('Configure iterm2 option key', 'Profile > Default > Keys > Key Mappings')
+        manual_config.add_step('Configure iterm2 option key', 'create/change option + left arrow shortcut to "b"')
+        manual_config.add_step('Configure iterm2 option key', 'create/change option + right arrow shortcut to "f"')
