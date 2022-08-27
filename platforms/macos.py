@@ -93,5 +93,9 @@ class MacOS:
         manual_config.add_step('Configure iterm2 option key', 'Profile > Default > Keys > General')
         manual_config.add_step('Configure iterm2 option key', 'Left Option Key = Esc+')
         manual_config.add_step('Configure iterm2 option key', 'Profile > Default > Keys > Key Mappings')
-        manual_config.add_step('Configure iterm2 option key', 'create/change option + left arrow shortcut to "b"')
-        manual_config.add_step('Configure iterm2 option key', 'create/change option + right arrow shortcut to "f"')
+        manual_config.add_step(
+            'Configure iterm2 option key',
+            'create/change option + left arrow shortcut to send escape sequence "b"')
+        manual_config.add_step(
+            'Configure iterm2 option key',
+            'create/change option + right arrow shortcut to send escape sequence "f"')
