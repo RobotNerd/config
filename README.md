@@ -17,8 +17,8 @@ A python script to automatically apply configuration to unix-like systems.
 cd config
 ```
 
-- Modify the `config.yml` file based on your needs. See the section `config.yml`
-  for details.
+- Modify the `config.yml` file based on your needs. See the section
+  [config file](#config-file) for details.
 
 - Run the script.
   - Specify the target platform.
@@ -36,17 +36,41 @@ cd config
 > NOTE: The script will prompt for the sudo password if installing packages
 > using the system package manager.
 
-## config.yml
+## config file
 
-The file `config.yml` contains the 
+The file `config.yml` defines which changes are applied by the script.
 
-> TODO
+Some groups are broken down into `all`, `personal`, and `work` subgroups.
+Values from the `all` group are always applied. The values in the `personal`
+group are only applied if the `--personal` CLI argument is provided. Likewise,
+`work` items are only applied if the `--work` CLI argument is provided.
+Any of these groups can be empty, but the group title should still be present.
+
+| Field | Description |
+| - | - |
+| user_info.email | Email address used when configuring git. |
+| user_info.name | Full name used when configuring git. This can contain spaces. |
+| configure_git_global_settings | Will run `git configure --global` commands if True. |
+| ssh.generate_ssh_key | Will generate a new ssh key if True. |
+| ssh.ssh_algorithm | Encryption algorithm to use when generating the key. |
+| ssh.ssh_keyfile_path | Path where the new key is written. |
+| ssh.sshd_enabled | Will start the sshd service if True. |
+| vundle | Will run vundle to install vim plugins (from .vimrc) if True. |
+| config_files | Lists of files that are copied to the system. |
+
+In addition, each target platform has a set of configuration values that define
+what applications are installed on that platform. These values are individually
+tailored to the target platform. See the code under the `platforms` directory
+if you need to dig into the details.
 
 ## Testing
 
 ### Unit tests
 
-> TODO
+Run unit tests.
+```
+python3 -m unittest
+```
 
 ### Manual test with docker
 

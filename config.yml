@@ -8,7 +8,7 @@ ssh:
   ssh_algorithm: ed25519
   ssh_keyfile_path: $HOME/.ssh/id_ed25519
   sshd_enabled: False
-vundle: False
+vundle: True
 config_files:
   all:
     - name: rc-custom
