@@ -6,16 +6,16 @@ A python script to automatically apply configuration to unix-like systems.
 
 > NOTE: Run the command `python3 apply-config.py -h` to see command line options.
 
--Get the script using one of these options:
+- Get the script using one of these options:
   - Clone the repository.
   - Download the zipped release and extract it. This option is useful if you
     don't have git installed yet (which is something the configuration script
     will do).
 
 - Change to the script directory.
-```shell
-cd config
-```
+  ```shell
+  cd config
+  ```
 
 - Modify the `config.yml` file based on your needs. See the section
   [config file](#config-file) for details.
@@ -59,9 +59,12 @@ Any of these groups can be empty, but the group title should still be present.
 | config_files | Lists of files that are copied to the system. |
 
 In addition, each target platform has a set of configuration values that define
-what applications are installed on that platform. These values are individually
-tailored to the target platform. See the code under the `platforms` directory
-if you need to dig into the details.
+what applications are installed on that platform. Add or remove applications
+to these lists using the appropriate package names for the package manager on
+that platform.
+
+There is some customization for each platform. See the code under the `platforms`
+directory if you need to dig into the details.
 
 ## Testing
 
