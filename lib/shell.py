@@ -20,11 +20,11 @@ def add_custom_shell_config(logger, cfg):
 
 def _get_or_create_rc_file(logger):
     shell = _get_shell_name()
-    if shell.endswith('bash'):
+    if shell == '/bin/bash':
         rc_file = os.path.expandvars('$HOME/.bashrc')
-    elif shell.endswith('zsh'):
+    elif shell == '/bin/zsh':
         rc_file = os.path.expandvars('$HOME/.zshrc')
-    elif shell.endswith('ash'):
+    elif shell == '/bin/ash':
         rc_file = os.path.expandvars('$HOME/.profile')
     else:
         raise UnsupportedShell(shell)
@@ -40,11 +40,11 @@ def _get_shell_name():
     shell = os.environ.get('SHELL')
     if shell is None:
         if os.path.exists('/bin/ash'):
-            shell = 'ash'
+            shell = '/bin/ash'
         elif os.path.exists('/bin/bash'):
-            shell = 'bash'
-        elif os.path.exists('/bin/zash'):
-            shell = 'zsh'
+            shell = '/bin/bash'
+        elif os.path.exists('/bin/zsh'):
+            shell = '/bin/zsh'
     return shell
 
 

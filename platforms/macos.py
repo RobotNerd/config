@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 from lib import cmd
+from lib import shell
 
 
 class MacOS:
@@ -13,11 +14,16 @@ class MacOS:
 
     def _install_homebrew(self):
         self.logger.info('installing homebrew')
+        tmp_path = '/tmp/install_brew.sh'
         cmd.run([
-            '/bin/bash',
-            '-c',
-            '"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
+            'curl',
+            '-fsSL',
+            'https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh',
+            '>',
+            tmp_path
         ])
+        cmd.run(['/bin/bash', tmp_path])
+        cmd.run(['rm', tmp_path])
     
     def install_applications(self):
         platform = self.cfg['macos']
