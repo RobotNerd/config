@@ -1,6 +1,7 @@
 #!/usr/bin/python3
+import os
+
 from lib import cmd
-from lib import shell
 
 
 class MacOS:
@@ -19,10 +20,21 @@ class MacOS:
             'curl',
             '-fsSL',
             'https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh',
-            '>',
+            '-o',
             tmp_path
         ])
-        cmd.run(['/bin/bash', tmp_path])
+        # To run brew without prompting the user, the env var NONINTERACTIVE needs to
+        # be set to 1. The env var is temporarily added to run the command.
+        # See https://stackoverflow.com/a/34333710/241025
+        old_environ = dict(os.environ)
+        new_environ = dict(os.environ)
+        try:
+            new_environ['NONINTERACTIVE'] = 1
+            os.environ.update(new_environ)
+            cmd.run(['/bin/bash', tmp_path])
+        finally:
+            os.environ.clear()
+            os.environ.update(old_environ)
         cmd.run(['rm', tmp_path])
     
     def install_applications(self):
