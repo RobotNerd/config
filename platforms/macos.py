@@ -2,6 +2,7 @@
 import os
 
 from lib import cmd
+from lib import manual_config
 
 
 class MacOS:
@@ -83,4 +84,4 @@ class MacOS:
             return
 
         self.logger.info('enabling sshd')
-        cmd.run('sudo systemsetup -setremotelogin on'.split(' '))
+        cmd.run('sudo launchctl load -w /System/Library/LaunchDaemons/ssh.plist'.split(' '))
