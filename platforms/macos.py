@@ -15,6 +15,10 @@ class MacOS:
         self._install_homebrew()
 
     def _install_homebrew(self):
+        if self._is_brew_installed():
+            self.logger.info('brew already installed')
+            return
+
         self.logger.info('installing homebrew')
         tmp_path = '/tmp/install_brew.sh'
         cmd.run([
@@ -37,6 +41,15 @@ class MacOS:
             os.environ.clear()
             os.environ.update(old_environ)
         cmd.run(['rm', tmp_path])
+    
+    def _is_brew_installed(self):
+        installed = False
+        try:
+            cmd.run(['brew', '-v'])
+            installed = True
+        except cmd.CommandRunnerError:
+            pass
+        return installed
     
     def install_applications(self):
         platform = self.cfg['macos']
