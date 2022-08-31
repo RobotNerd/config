@@ -10,7 +10,7 @@ Plugin 'kchmck/vim-coffee-script'
 Plugin 'leafgarland/typescript-vim'
 Plugin 'rafi/awesome-vim-colorschemes'
 Plugin 'robotnerd/outline-vim'
-Plugin 'robotnerd/prose-english-vim'
+Plugin 'robotnerd/proze-vim'
 
 call vundle#end()
 filetype plugin indent on
