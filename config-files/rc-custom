@@ -7,7 +7,6 @@ case "$SHELL" in
   *zsh*) export PROMPT="%F{#63C936}%~%# %F{FFF}" ;;
 esac
 
-alias diff='diff --color'
 alias glog="git log --pretty=format:'%C(yellow)%h %Cred%ad %Cblue%an%Cgreen%d %Creset%s' --date=short"
 alias grep='grep --color=auto'
 alias guf='git checkout master && git pull --rebase && git checkout -'
