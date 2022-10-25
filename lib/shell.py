@@ -18,8 +18,14 @@ def add_custom_shell_config(logger, cfg):
     manual_config.add_step('Shell scripts', f'run command: source {rc_file}')
 
 
+def add_cmd_to_rc_custom(cfg, cmd):
+    rc_custom = _get_rc_custom_path(cfg)
+    with open(os.path.expandvars(rc_custom), 'a') as file:
+        file.write(f'\n\n{cmd}\n')
+
+
 def _get_or_create_rc_file(logger):
-    shell = _get_shell_name()
+    shell = get_shell_name()
     if shell == '/bin/bash':
         rc_file = os.path.expandvars('$HOME/.bashrc')
     elif shell == '/bin/zsh':
@@ -36,7 +42,7 @@ def _get_or_create_rc_file(logger):
     return rc_file
 
 
-def _get_shell_name():
+def get_shell_name():
     shell = os.environ.get('SHELL')
     if shell is None:
         if os.path.exists('/bin/ash'):
