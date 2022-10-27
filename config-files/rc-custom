@@ -4,7 +4,7 @@ export PATH=$PATH:./
 
 case "$SHELL" in
   *bash*) export PS1='\033[01;32m\]\W\033[00m\]\$ ' ;;
-  *zsh*) export PROMPT="%F{#63C936}%~%# %F{FFF}" ;;
+  *zsh*) export PROMPT="%F{#A149C9}%m:%F{#63C936}%~%# %F{FFF}" ;;
 esac
 
 alias glog="git log --pretty=format:'%C(yellow)%h %Cred%ad %Cblue%an%Cgreen%d %Creset%s' --date=short"
