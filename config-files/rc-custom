@@ -1,6 +1,6 @@
 #!/bin/sh
 
-export PATH=$PATH:./
+export PATH=$PATH:$HOME/scripts:./
 
 case "$SHELL" in
   *bash*) export PS1='\033[01;32m\]\W\033[00m\]\$ ' ;;

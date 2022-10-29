@@ -31,6 +31,7 @@ def apply_changes(logger, args, cfg):
     platform = get_platform(logger, args, cfg)
     platform.install_applications()
     config_files.copy(logger, args, cfg)
+    config_files.copy_scripts(logger)
     shell.add_custom_shell_config(logger, cfg)
     git.configure(logger, cfg)
     vim.vundle(logger, cfg)

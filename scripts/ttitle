@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [ $# -lt 1 ]; then
+  echo "Usage: ttitle [TITLE]"
+  echo "  Set the title of the current tmux pane"
+  exit 1
+fi
+
+tmux select-pane -T $1
+

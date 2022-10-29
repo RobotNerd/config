@@ -19,3 +19,10 @@ def copy(logger, args, cfg):
         if backup.is_needed(src, dst):
             backup.to_file(logger, dst)
         shutil.copy(src, dst)
+
+
+def copy_scripts(logger):
+    logger.info('copying scripts folder')
+    src = os.path.expandvars('./scripts')
+    dst = os.path.expandvars('$HOME/scripts')
+    shutil.copytree(src, dst)
