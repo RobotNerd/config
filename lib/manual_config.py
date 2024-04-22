@@ -9,8 +9,9 @@ def set_defaults(args, cfg):
     firefox = 'Add firefox browser extensions'
     add_step(firefox, 'FoxyGestures')
     add_step(firefox, 'uBlock')
+    add_step(firefox, 'Simple Tab Groups')
     if args.personal:
-        add_step(firefox, 'LastPass')
+        add_step(firefox, '1Password')
 
     if cfg['configure_git_global_settings']:
         git = 'Setup security keys'
