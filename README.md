@@ -20,7 +20,7 @@ A python script to automatically apply configuration to unix-like systems.
 - Install the python packages in `requirements.txt`. (You should ideally install
   these packages as part of a virtual environment like conda, but that is outside
   of the scope of this document.)
-  ```
+  ```shell
   pip3 install -r requirements.txt
   ```
 
