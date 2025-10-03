@@ -14,6 +14,8 @@ from platforms.alpine import Alpine
 from platforms.macos import MacOS
 from platforms.manjaro import Manjaro
 
+from tools import oh_my_posh
+
 import lib.manual_config as manual_config
 
 CONFIG_PATH = './config.yml'
@@ -36,6 +38,7 @@ def apply_changes(logger, args, cfg):
     vim.vundle(logger, cfg)
     ssh.generate_key(logger, cfg)
     platform.enable_sshd()
+    oh_my_posh.install()
 
 
 def get_platform(logger, args, cfg):
