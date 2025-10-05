@@ -50,8 +50,8 @@ def get_platform(logger, args, cfg):
         platform = Manjaro(logger, args, cfg)
     elif args.platform == 'alpine':
         platform = Alpine(logger, args, cfg)
-    elif arg.platform == 'ubuntu':
-        platfrom = Ubuntu(logger, args, cfg)
+    elif args.platform == 'ubuntu':
+        platform = Ubuntu(logger, args, cfg)
     else:
         raise UnrecognizedPlatform(args.platform)
     return platform
