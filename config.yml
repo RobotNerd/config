@@ -58,7 +58,7 @@ macos:
       - zoom
     personal:
     work:
-manjaro_linux:
+manjaro:
   pacman:
     all:
       - docker

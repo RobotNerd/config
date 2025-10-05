@@ -13,6 +13,7 @@ from lib import vim
 from platforms.alpine import Alpine
 from platforms.macos import MacOS
 from platforms.manjaro import Manjaro
+from platforms.ubuntu import Ubuntu
 
 from tools import oh_my_posh
 
@@ -45,10 +46,12 @@ def get_platform(logger, args, cfg):
     platform = None
     if args.platform == 'macos':
         platform = MacOS(logger, args, cfg)
-    elif args.platform == 'manjaro_linux':
+    elif args.platform == 'manjaro':
         platform = Manjaro(logger, args, cfg)
-    elif args.platform == 'alpine_linux':
+    elif args.platform == 'alpine':
         platform = Alpine(logger, args, cfg)
+    elif arg.platform == 'ubuntu':
+        platfrom = Ubuntu(logger, args, cfg)
     else:
         raise UnrecognizedPlatform(args.platform)
     return platform
