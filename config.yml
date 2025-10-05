@@ -90,6 +90,4 @@ ubuntu:
     personal:
     work:
   vscode:
-    install: True
-    src: https://go.microsoft.com/fwlink/?LinkID=760868
-    dst: $HOME/Downloads/vscode_installer.deb
+    src: https://code.visualstudio.com/download

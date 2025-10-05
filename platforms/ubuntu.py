@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 from lib import cmd
+import lib.manual_config as manual_config
 
 
 class Ubuntu:
@@ -25,15 +26,7 @@ class Ubuntu:
         if packages:
             cmd.run(['sudo', 'apt', 'install', '-y'] + packages)
         
-        self._install_vscode()
-
-    def _install_vscode(self):
-        if not self.cfg['ubuntu']['vscode']['install']:
-            return
-        src = self.cfg['ubuntu']['vscode']['src']
-        dst = self.cfg['ubuntu']['vscode']['dst']
-        cmd.run(f'wget {src} -O {dst}'.split(' '))
-        cmd.run(f'sudo apt install {dst}'.split(' '))
+        manual_config.add_step('ubuntu', f'Install vscode {['ubuntu']['vscode']['src']}')
     
     def enable_sshd(self):
         if not self.cfg['ssh']['sshd_enabled']:
