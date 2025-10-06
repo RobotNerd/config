@@ -39,7 +39,7 @@ def apply_changes(logger, args, cfg):
     vim.vundle(logger, cfg)
     ssh.generate_key(logger, cfg)
     platform.enable_sshd()
-    oh_my_posh.install(cfg)
+    oh_my_posh.install(logger, cfg)
 
 
 def get_platform(logger, args, cfg):

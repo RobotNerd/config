@@ -13,7 +13,8 @@ fi'''
     shell.add_cmd_to_rc_custom(cfg, oh_my_posh_rc)
 
 
-def install(cfg):
+def install(logger, cfg):
+    logger.info('Installing oh-my-posh')
     if not cfg['ohmyposh']['install']:
         return
     src = cfg['ohmyposh']['src']
