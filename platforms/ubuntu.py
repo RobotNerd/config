@@ -10,6 +10,7 @@ class Ubuntu:
         self.cfg = cfg
         self.logger = logger
         logger.info('Enter sudo password when prompted')
+        cmd.run(['sudo', 'ls'])
     
     def install_applications(self):
         platform = self.cfg['ubuntu']
