@@ -24,7 +24,7 @@ class Ubuntu:
         if self.args.work and apt['work']:
             packages += apt['work']
         if packages:
-            cmd.run(['sudo', 'apt', 'install', '-y'] + packages)
+            cmd.run(['sudo', 'apt-get', 'install', '-y'] + packages)
         
         manual_config.add_step('ubuntu', f'Install vscode {platform['vscode']['src']}')
     
