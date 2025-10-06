@@ -19,7 +19,10 @@ def install(logger, cfg):
         return
     src = cfg['ohmyposh']['src']
     shell_name = shell.get_shell_name()
-    cmd.run(f'curl -s {src} | {shell_name} -s'.split(' '))
+    tmp_path = '/tmp/install_oh_my_posh.sh'
+    cmd.run(['curl', '-fsSL', src, '-o', tmp_path])
+    cmd.run([shell_name, tmp_path])
+    cmd.run(['rm', tmp_path])
 
     font = src = cfg['ohmyposh']['font']
     cmd.run(f'oh-my-posh font install {font}'.split(' '))
