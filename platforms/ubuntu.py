@@ -26,7 +26,7 @@ class Ubuntu:
         if packages:
             cmd.run(['sudo', 'apt', 'install', '-y'] + packages)
         
-        manual_config.add_step('ubuntu', f'Install vscode {['ubuntu']['vscode']['src']}')
+        manual_config.add_step('ubuntu', f'Install vscode {platform['vscode']['src']}')
     
     def enable_sshd(self):
         if not self.cfg['ssh']['sshd_enabled']:
