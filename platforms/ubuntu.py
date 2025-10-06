@@ -33,5 +33,5 @@ class Ubuntu:
         if not self.cfg['ssh']['sshd_enabled']:
             return
         self.logger.info('enabling sshd')
-        cmd.run('systemctl enable ssh'.split())
-        cmd.run('systemctl start ssh'.split())
+        cmd.run('sudo systemctl enable ssh'.split())
+        cmd.run('sudo systemctl start ssh'.split())
