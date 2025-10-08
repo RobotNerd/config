@@ -14,8 +14,8 @@ ohmyposh:
   src: https://ohmyposh.dev/install.sh
   font: RobotoMono
   theme:
-    src: https://github.com/JanDeDobbeleer/oh-my-posh/blob/main/themes/jandedobbeleer.omp.json
-    dst: $HOME/.poshthemes/jandedobbeleer.omp.json
+    src: https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/refs/heads/main/themes/jandedobbeleer.omp.json
+    dst: $HOME/.poshthemes/
 config_files:
   all:
     - name: rc-custom

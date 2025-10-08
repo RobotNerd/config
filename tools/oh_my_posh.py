@@ -30,6 +30,6 @@ def install(logger, cfg):
 
     src = cfg['ohmyposh']['theme']['src']
     dst = cfg['ohmyposh']['theme']['dst']
-    cmd.run(f'wget {src} -O {dst}'.split(' '))
+    cmd.run(f'wget -P {dst} {src}'.split(' '))
 
     _update_rc_custom(cfg, dst)
