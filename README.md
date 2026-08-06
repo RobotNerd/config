@@ -37,8 +37,13 @@ A python script to automatically apply configuration to unix-like systems.
     python3 apply-config.py macos --work
 
     # Setting up a personal machine.
-    python3 apply-config.py manjaro_linux --personal
+    python3 apply-config.py manjaro --personal
     ```
+
+> NOTE: Only the `macos` and `ubuntu` targets currently run to completion. The
+> `manjaro` and `alpine` targets fail because the platform name accepted on the
+> command line no longer matches the section key their code reads out of
+> `config.yml`. See `tasks/TODO.md`.
 
 > NOTE: The script will prompt for the sudo password if installing packages
 > using the system package manager.
@@ -101,10 +106,14 @@ docker run -it alpine-test:test /bin/ash
 
 - Apply configuration changes.
 ```shell
-python3 apply-config.py alpine_linux --personal --work --config-path ./config.yml
+python3 apply-config.py alpine --personal --work --config-path ./config.yml
 ```
 
 > NOTE: Alternatively, all of the above commands can be concatenated into one command:
-> `docker build -t alpine-test:test -f Dockerfile-test . && docker run -it alpine-test:test /bin/ash -c "python3 apply-config.py alpine_linux --personal --work --config-path ./config.yml; /bin/ash"`
+> `docker build -t alpine-test:test -f Dockerfile-test . && docker run -it alpine-test:test /bin/ash -c "python3 apply-config.py alpine --personal --work --config-path ./config.yml; /bin/ash"`
+
+> NOTE: This flow is currently broken. `alpine` is rejected because `test/config.yml`
+> keys the section as `alpine_linux`, and `test/config.yml` is also missing the
+> `ohmyposh` key the last pipeline step requires. See `tasks/TODO.md`.
 
 - Verify that the configuration changes are applied.
