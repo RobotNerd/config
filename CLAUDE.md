@@ -2,6 +2,17 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Status: v2 refactor planned
+
+A ground-up refactor is specified in **`docs/DESIGN.md`**, with the rules to follow in
+**`docs/CONVENTIONS.md`** and sequenced, ID'd work in **`tasks/TODO.md`**. Read those
+first — the sections below describe the **current (v1)** code, which v2 replaces.
+
+Headline v2 changes: zero runtime dependencies (`config.yml` → `config.toml` via stdlib
+`tomllib`, no colorama), a plan/apply split that makes idempotence and dry-run structural,
+first-class Windows 11 support, a stdlib ANSI TUI, and golden-file plan tests. manjaro and
+alpine are deprecated.
+
 ## Project Overview
 
 A Python script that applies personal machine configuration to Unix-like systems:
