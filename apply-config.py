@@ -13,6 +13,9 @@ from lib import vim
 from platforms.alpine import Alpine
 from platforms.macos import MacOS
 from platforms.manjaro import Manjaro
+from platforms.ubuntu import Ubuntu
+
+from tools import oh_my_posh
 
 import lib.manual_config as manual_config
 
@@ -36,16 +39,19 @@ def apply_changes(logger, args, cfg):
     vim.vundle(logger, cfg)
     ssh.generate_key(logger, cfg)
     platform.enable_sshd()
+    oh_my_posh.install(logger, cfg)
 
 
 def get_platform(logger, args, cfg):
     platform = None
     if args.platform == 'macos':
         platform = MacOS(logger, args, cfg)
-    elif args.platform == 'manjaro_linux':
+    elif args.platform == 'manjaro':
         platform = Manjaro(logger, args, cfg)
-    elif args.platform == 'alpine_linux':
+    elif args.platform == 'alpine':
         platform = Alpine(logger, args, cfg)
+    elif args.platform == 'ubuntu':
+        platform = Ubuntu(logger, args, cfg)
     else:
         raise UnrecognizedPlatform(args.platform)
     return platform

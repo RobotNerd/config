@@ -9,6 +9,13 @@ ssh:
   ssh_keyfile_path: $HOME/.ssh/id_ed25519
   sshd_enabled: False
 vundle: False
+ohmyposh:
+  install: True
+  src: https://ohmyposh.dev/install.sh
+  font: RobotoMono
+  theme:
+    src: https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/refs/heads/main/themes/jandedobbeleer.omp.json
+    dst: $HOME/.poshthemes/
 config_files:
   all:
     - name: rc-custom
@@ -51,7 +58,7 @@ macos:
       - zoom
     personal:
     work:
-manjaro_linux:
+manjaro:
   pacman:
     all:
       - docker
@@ -73,3 +80,16 @@ manjaro_linux:
     install: False
     src: https://zoom.us/client/latest/zoom_x86_64.pkg.tar.xz
     dst: $HOME/Downloads/$ZOOM_PKG
+ubuntu:
+  apt:
+    all:
+      - nodejs
+      - npm
+      - openssh-server
+      - silversearcher-ag
+      - tmux
+      - vim
+    personal:
+    work:
+  vscode:
+    src: https://code.visualstudio.com/download
